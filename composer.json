@@ -1,0 +1,21 @@
+{
+    "name" : "friendsofakeneo/cron-bundle",
+    "type" : "symfony-bundle",
+    "description" : "",
+    "keywords" : [
+        "cron",
+        "Symfony2"
+    ],
+    "homepage": "https://github.com/FriendsOfAkeneo/FOACronBundle",
+    "license": "MIT",
+    "authors" : [
+    ],
+    "require" : {
+        "php": ">=5.3"
+    },
+    "require-dev": {
+    },
+    "autoload" : {
+        "psr-4" : { "FOA\\CronBundle\\" : "" }
+    }
+}
