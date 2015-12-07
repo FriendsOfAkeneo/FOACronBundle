@@ -1,0 +1,29 @@
+BCCCronManagerBundle_index:
+  pattern: /
+  defaults: { _controller: FOACronBundle:Dashboard:index }
+
+BCCCronManagerBundle_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: FOACronBundle:Dashboard:edit }
+
+BCCCronManagerBundle_add:
+  pattern: /add
+  defaults: { _controller: FOACronBundle:Dashboard:add }
+  requirements: { _method: [POST] }
+
+BCCCronManagerBundle_wakeup:
+  pattern: /{id}/wakeup
+  defaults: { _controller: FOACronBundle:Dashboard:wakeup }
+
+BCCCronManagerBundle_suspend:
+  pattern: /{id}/suspend
+  defaults: { _controller: FOACronBundle:Dashboard:suspend }
+
+BCCCronManagerBundle_remove:
+  pattern: /{id}/remove
+  defaults: { _controller: FOACronBundle:Dashboard:remove }
+
+BCCCronManagerBundle_file
+  pattern: /{id}/file/{type}
+  defaults: { _controller: FOACronBundle:Dashboard:file }
+  requirements: { type: log|error }
