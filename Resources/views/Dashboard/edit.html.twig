@@ -1,13 +1,23 @@
 {% extends 'BCCCronManagerBundle::layout.html.twig' %}
 
 {% block content %}
-    <section id="edit-cron">
-        <div class="page-header">
-            <h1>{{ 'Edit a cron' | trans({}, 'BCCCronManagerBundle') }}</h1>
+    <div class="navigation clearfix navbar-extra">
+        <div class="row-fluid">
+            <div class="navbar-content pull-left">
+                <div class="navbar-title clearfix-oro">
+                    <div class="sub-title">Edit Cron</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="navbar-content pull-left">
+            </div>
         </div>
-        <form role="form" method="post" action="#">
-            {% include 'BCCCronManagerBundle:Default:form.html.twig' with {'form': form} %}
+    </div>
+    <section id="edit-cron" class="container-fluid">
+        <form role="form" method="post" action="{{ path('defaul_value.cron.default.edit', {'id':index}) }}">
+            {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
             <input type="submit" class="btn btn-success btn-lg" value="{{ 'Edit' | trans({}, 'BCCCronManagerBundle') }}"/>
         </form>
+
     </section>
 {% endblock %}

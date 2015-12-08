@@ -9,7 +9,7 @@ BCCCronManagerBundle_edit:
 BCCCronManagerBundle_add:
   pattern: /add
   defaults: { _controller: FOACronBundle:Dashboard:add }
-  requirements: { _method: [POST] }
+  methods: [POST]
 
 BCCCronManagerBundle_wakeup:
   pattern: /{id}/wakeup
@@ -23,7 +23,8 @@ BCCCronManagerBundle_remove:
   pattern: /{id}/remove
   defaults: { _controller: FOACronBundle:Dashboard:remove }
 
-BCCCronManagerBundle_file
+BCCCronManagerBundle_file:
   pattern: /{id}/file/{type}
   defaults: { _controller: FOACronBundle:Dashboard:file }
-  requirements: { type: log|error }
+  requirements:
+      type: log|error

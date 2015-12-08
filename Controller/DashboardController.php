@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
         $form = $this->createForm(new CronType(), new Cron());
 
-        return $this->render('BCCCronManagerBundle:Default:index.html.twig', array(
+        return $this->render('FOACronBundle:Dashboard:index.html.twig', array(
             'crons' => $cm->get(),
             'raw'   => $cm->getRaw(),
             'form'  => $form->createView(),
@@ -58,7 +58,7 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('BCCCronManagerBundle:Default:index.html.twig', array(
+        return $this->render('FOACronBundle:Dashboard:index.html.twig', array(
             'crons' => $cm->get(),
             'raw'   => $cm->getRaw(),
             'form'  => $form->createView(),
@@ -92,7 +92,7 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('BCCCronManagerBundle:Default:edit.html.twig', array(
+        return $this->render('FOACronBundle:Dashboard:edit.html.twig', array(
             'form'  => $form->createView(),
         ));
     }

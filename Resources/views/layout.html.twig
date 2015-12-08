@@ -1,75 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>{{ 'BCC Cron Manager' | trans({}, 'BCCCronManagerBundle') }}</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% extends bap.layout %}
+{% import 'PimUIBundle:Default:page_elements.html.twig' as elements %}
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+{% block head %}
+    <title>fdsfdsfdsfsdsfds</title>
+    <script id="page-title" type="text/html">{{ oro_title_render() }}</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+{% block page_container %}
+    {% block content %}{% endblock %}
+    <script type="text/javascript">
+        $(document).ajaxComplete(function () {
+            document.title = "Akeneo Cron Management"; // @TODO ugly temporary solution
+        });
+        $(document).ready(function () {
 
-    <!-- Le styles -->
-    {% stylesheets
-        '@BCCCronManagerBundle/Resources/public/css/main.css'
-        combine=true
-    %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
-    {% endstylesheets %}
+            document.title = "Akeneo Cron Management"; // @TODO ugly temporary solution
 
-</head>
-
-<body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="navbar-brand" href="{{ path('BCCCronManagerBundle_index') }}">{{ 'BCC Cron Manager' | trans({}, 'BCCCronManagerBundle') }}</a>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    {% for flashMessage in app.session.flashbag.get('notice') %}
-          <div class="alert alert-info">{{ flashMessage }}</div>
-    {% endfor %}
-
-    {% for flashMessage in app.session.flashbag.get('error') %}
-          <div class="alert alert-danger">{{ flashMessage }}</div>
-    {% endfor %}
-
-    {% block content %}
-    {% endblock %}
-</div>
-
-<div class="modal" id="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal" href="#">×</a>
-                <h3></h3>
-            </div>
-            <div class="modal-body">
-                <pre style="height: 200px; overflow: auto;">test</pre>
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-default btn-primary" data-dismiss="modal" href="#">{{ 'Close' | trans({}, 'BCCCronManagerBundle') }}</a>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-{% javascripts
-    '@BCCCronManagerBundle/Resources/public/js/script.js'
-    combine=true
-%}
-     <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-
-</body>
-</html>
+            $(".collapse").collapse();
+            $('.time-input, .command-preset, .time-menu, .log-preset').tooltip({});
+            $('.command-preset').on('click', function () {
+                $('#cron_command').val($(this).attr('value'));
+            });
+            $('.log-preset').on('click', function () {
+                var $button = $(this);
+                $button.parent().parent().find('input').val($button.attr('value'));
+            });
+            $('.modal-link').on('click', function (e) {
+                e.preventDefault();
+                var $link = $(this);
+                $.getJSON($link.attr('href'), function (data) {
+                    var $modal = $('#modal');
+                    $modal.find('.modal-header h3').text(data.file);
+                    $modal.find('.modal-body pre').text(data.content);
+                    $modal.modal({
+                        backdrop: true,
+                        keyboard: true
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}
