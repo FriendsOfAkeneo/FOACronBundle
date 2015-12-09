@@ -154,16 +154,17 @@ class Cron
 
         // create cron instance
         $cron = new self();
-        $cron->setMinute($parts[0]);
-        $cron->setHour($parts[1]);
-        $cron->setDayOfMonth($parts[2]);
-        $cron->setMonth($parts[3]);
-        $cron->setDayOfWeek($parts[4]);
-        $cron->setCommand(\trim($command));
-        $cron->setLastRunTime($lastRunTime);
-        $cron->setLogSize($logSize);
-        $cron->setErrorSize($errorSize);
-        $cron->setStatus($status);
+        $cron->setMinute($parts[0])
+            ->setHour($parts[1])
+            ->setDayOfMonth($parts[2])
+            ->setMonth($parts[3])
+            ->setDayOfWeek($parts[4])
+            ->setCommand(\trim($command))
+            ->setLastRunTime($lastRunTime)
+            ->setLogSize($logSize)
+            ->setErrorSize($errorSize)
+            ->setStatus($status);
+
         if (isset($isSuspended)) {
             $cron->setSuspended($isSuspended);
         }
@@ -182,10 +183,13 @@ class Cron
 
     /**
      * @param string $command
+     * @return $this
      */
     public function setCommand($command)
     {
         $this->command = $command;
+
+        return $this;
     }
 
     /**
@@ -198,10 +202,13 @@ class Cron
 
     /**
      * @param string $dayOfMonth
+     * @return $this
      */
     public function setDayOfMonth($dayOfMonth)
     {
         $this->dayOfMonth = $dayOfMonth;
+
+        return $this;
     }
 
     /**
@@ -214,10 +221,14 @@ class Cron
 
     /**
      * @param string $dayOfWeek
+     * @param $dayOfWeek
+     * @return $this
      */
     public function setDayOfWeek($dayOfWeek)
     {
         $this->dayOfWeek = $dayOfWeek;
+
+        return $this;
     }
 
     /**
@@ -230,10 +241,14 @@ class Cron
 
     /**
      * @param string $hour
+     * @param $hour
+     * @return $this
      */
     public function setHour($hour)
     {
         $this->hour = $hour;
+
+        return $this;
     }
 
     /**
@@ -246,10 +261,13 @@ class Cron
 
     /**
      * @param string $minute
+     * @return $this
      */
     public function setMinute($minute)
     {
         $this->minute = $minute;
+
+        return $this;
     }
 
     /**
@@ -262,10 +280,13 @@ class Cron
 
     /**
      * @param string $month
+     * @return $this
      */
     public function setMonth($month)
     {
         $this->month = $month;
+
+        return $this;
     }
 
     /**
@@ -278,10 +299,13 @@ class Cron
 
     /**
      * @param string $comment
+     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
+
+        return $this;
     }
 
     /**
@@ -294,10 +318,13 @@ class Cron
 
     /**
      * @param string $logFile
+     * @return $this
      */
     public function setLogFile($logFile)
     {
         $this->logFile = $logFile;
+
+        return $this;
     }
 
     /**
@@ -310,10 +337,13 @@ class Cron
 
     /**
      * @param string $errorFile
+     * @return $this
      */
     public function setErrorFile($errorFile)
     {
         $this->errorFile = $errorFile;
+
+        return $this;
     }
 
     /**
@@ -326,10 +356,13 @@ class Cron
 
     /**
      * @param int $lastRunTime
+     * @return $this
      */
     public function setLastRunTime($lastRunTime)
     {
         $this->lastRunTime = $lastRunTime;
+
+        return $this;
     }
 
     /**
@@ -342,10 +375,13 @@ class Cron
 
     /**
      * @param string $errorSize
+     * @return $this
      */
     public function setErrorSize($errorSize)
     {
         $this->errorSize = $errorSize;
+
+        return $this;
     }
 
     /**
@@ -358,10 +394,13 @@ class Cron
 
     /**
      * @param string $logSize
+     * @return $this
      */
     public function setLogSize($logSize)
     {
         $this->logSize = $logSize;
+
+        return $this;
     }
 
     /**
@@ -374,10 +413,13 @@ class Cron
 
     /**
      * @param string $status
+     * @return $this
      */
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
     }
 
     /**
@@ -420,6 +462,7 @@ class Cron
         if ($this->isSuspended != $isSuspended) {
             $this->isSuspended = $isSuspended;
         }
+
         return $this;
     }
 
