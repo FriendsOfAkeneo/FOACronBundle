@@ -166,6 +166,10 @@ class DashboardController extends Controller
     {
         $cm = new CronManager();
         $crons = $cm->get();
+
+        /**
+         * @var \FOA\CronBundle\Manager\Cron
+         */
         $cron = $crons[$id];
 
         $data = array();

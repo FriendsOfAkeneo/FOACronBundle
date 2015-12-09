@@ -1,7 +1,6 @@
 <?php
-namespace FOA\CronBundle\Manager;
 
-use Symfony\Component\Filesystem\Filesystem;
+namespace FOA\CronBundle\Manager;
 
 /**
  * Cron represents a cron command. It holds:
@@ -88,7 +87,7 @@ class Cron
 
     /**
      * isSuspended
-     * 
+     *
      * @var boolean
      * @access protected
      */
@@ -112,7 +111,7 @@ class Cron
 
         $parts = \explode(' ', $cron);
 
-        $command = \implode(' ',\array_slice($parts, 5));
+        $command = \implode(' ', \array_slice($parts, 5));
 
         // extract comment
         if (\strpos($command, '#')) {
@@ -141,7 +140,7 @@ class Cron
             $logSize = \filesize($logFile);
         }
         if (isset($errorFile) && \file_exists($errorFile)) {
-            $lastRunTime = \max($lastRunTime?:0, \filemtime($errorFile));
+            $lastRunTime = \max($lastRunTime ? : 0, \filemtime($errorFile));
             $errorSize = \filesize($errorFile);
         }
 
@@ -149,10 +148,8 @@ class Cron
         $status = 'error';
         if ($logSize === null && $errorSize === null) {
             $status = 'unknown';
-        }
-        else if ($errorSize === null || $errorSize == 0)
-        {
-            $status =  'success';
+        } else if ($errorSize === null || $errorSize == 0) {
+            $status = 'success';
         }
 
         // create cron instance
@@ -410,11 +407,11 @@ class Cron
     {
         return $this->isSuspended;
     }
-    
+
     /**
      * Sets the value of isSuspended
      *
-     * @param boolean $suspended status
+     * @param boolean $isSuspended status
      *
      * @return Cron
      */
@@ -438,15 +435,15 @@ class Cron
             $cronLine .= '#suspended: ';
         }
 
-        $cronLine .= $this->getExpression().' '.$this->command;
+        $cronLine .= $this->getExpression() . ' ' . $this->command;
         if ('' != $this->logFile) {
-            $cronLine .= ' > '.$this->logFile;
+            $cronLine .= ' > ' . $this->logFile;
         }
         if ('' != $this->errorFile) {
-            $cronLine .= ' 2> '.$this->errorFile;
+            $cronLine .= ' 2> ' . $this->errorFile;
         }
         if ('' != $this->comment) {
-            $cronLine .= ' #'.$this->comment;
+            $cronLine .= ' #' . $this->comment;
         }
         return $cronLine;
     }

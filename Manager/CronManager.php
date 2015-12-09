@@ -29,12 +29,12 @@ class CronManager
      */
     protected $output;
 
-    function __construct()
+    public function __construct()
     {
         // parsing cron file
         $process = new Process('crontab -l');
         $process->run();
-        $lines = \array_filter(\explode(PHP_EOL, $process->getOutput()), function($line) {
+        $lines = \array_filter(\explode(PHP_EOL, $process->getOutput()), function ($line) {
             return '' != \trim($line);
         });
 
@@ -44,10 +44,10 @@ class CronManager
                 try {
                     $line = Cron::parse($line);
                 } catch (\Exception $e) {
-                    $process->addErrorOutput('CronManager was unable to parse crontab at line '.$lineNumber);
+                    $process->addErrorOutput('CronManager was unable to parse crontab at line ' . $lineNumber);
                 }
             }
-            $this->lines['l'.$lineNumber] = $line;
+            $this->lines['l' . $lineNumber] = $line;
         }
 
         $this->error = $process->getErrorOutput();
@@ -60,7 +60,7 @@ class CronManager
      */
     public function get()
     {
-        return \array_filter($this->lines, function($line){
+        return \array_filter($this->lines, function ($line) {
             return $line instanceof Cron;
         });
     }
@@ -96,9 +96,9 @@ class CronManager
     {
         $file = \tempnam(\sys_get_temp_dir(), 'cron');
 
-        \file_put_contents($file, $this->getRaw().PHP_EOL);
+        \file_put_contents($file, $this->getRaw() . PHP_EOL);
 
-        $process = new Process('crontab '.$file);
+        $process = new Process('crontab ' . $file);
         $process->run();
 
         $this->error = $process->getErrorOutput();
