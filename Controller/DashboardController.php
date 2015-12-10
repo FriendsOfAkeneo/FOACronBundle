@@ -10,7 +10,9 @@ use FOA\CronBundle\Manager\Cron;
 use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-
+/**
+ * Display dashboard and manage CRUD operations
+ */
 class DashboardController extends Controller
 {
     /**
@@ -20,15 +22,15 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        $cm = new CronManager();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
+        $cronManager = new CronManager();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
 
         $form = $this->createForm(new CronType(), new Cron());
 
         return $this->render('FOACronBundle:Dashboard:index.html.twig', array(
-            'crons' => $cm->get(),
-            'raw'   => $cm->getRaw(),
+            'crons' => $cronManager->get(),
+            'raw'   => $cronManager->getRaw(),
             'form'  => $form->createView(),
         ));
     }
@@ -40,27 +42,25 @@ class DashboardController extends Controller
      */
     public function addAction()
     {
-        $cm = new CronManager();
+        $cronManager = new CronManager();
         $cron = new Cron();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
         $form = $this->createForm(new CronType(), $cron);
 
         $request = $this->get('request');
-        if ('POST' == $request->getMethod()) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $cm->add($cron);
-                $this->addFlash('message', $cm->getOutput());
-                $this->addFlash('error', $cm->getError());
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $cronManager->add($cron);
+            $this->addFlash('message', $cronManager->getOutput());
+            $this->addFlash('error', $cronManager->getError());
 
-                return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
-            }
+            return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
         }
 
         return $this->render('FOACronBundle:Dashboard:index.html.twig', array(
-            'crons' => $cm->get(),
-            'raw'   => $cm->getRaw(),
+            'crons' => $cronManager->get(),
+            'raw'   => $cronManager->getRaw(),
             'form'  => $form->createView(),
         ));
     }
@@ -73,23 +73,21 @@ class DashboardController extends Controller
      */
     public function editAction($id)
     {
-        $cm = new CronManager();
-        $crons = $cm->get();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
-        $form = $this->createForm(new CronType(), $crons[$id]);
+        $cronManager = new CronManager();
+        $cronList = $cronManager->get();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
+        $form = $this->createForm(new CronType(), $cronList[$id]);
 
         $request = $this->get('request');
-        if ('POST' == $request->getMethod()) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $cm->write();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $cronManager->write();
 
-                $this->addFlash('message', $cm->getOutput());
-                $this->addFlash('error', $cm->getError());
+            $this->addFlash('message', $cronManager->getOutput());
+            $this->addFlash('error', $cronManager->getError());
 
-                return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
-            }
+            return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
         }
 
         return $this->render('FOACronBundle:Dashboard:edit.html.twig', array(
@@ -105,14 +103,20 @@ class DashboardController extends Controller
      */
     public function wakeupAction($id)
     {
-        $cm = new CronManager();
-        $crons = $cm->get();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
-        $crons[$id]->setSuspended(false);
-        $cm->write();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
+        $cronManager = new CronManager();
+        $cronList = $cronManager->get();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
+
+        /**
+         * @var \FOA\CronBundle\Manager\Cron $cron
+         */
+        $cron = $cronList[$id];
+        $cron->setSuspended(false);
+
+        $cronManager->write();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
 
         return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
     }
@@ -125,14 +129,20 @@ class DashboardController extends Controller
      */
     public function suspendAction($id)
     {
-        $cm = new CronManager();
-        $crons = $cm->get();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
-        $crons[$id]->setSuspended(true);
-        $cm->write();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
+        $cronManager = new CronManager();
+        $cronList = $cronManager->get();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
+
+        /**
+         * @var \FOA\CronBundle\Manager\Cron $cron
+         */
+        $cron = $cronList[$id];
+        $cron->setSuspended(true);
+
+        $cronManager->write();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
 
         return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
     }
@@ -145,12 +155,12 @@ class DashboardController extends Controller
      */
     public function removeAction($id)
     {
-        $cm = new CronManager();
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
-        $cm->remove($id);
-        $this->addFlash('message', $cm->getOutput());
-        $this->addFlash('error', $cm->getError());
+        $cronManager = new CronManager();
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
+        $cronManager->remove($id);
+        $this->addFlash('message', $cronManager->getOutput());
+        $this->addFlash('error', $cronManager->getError());
 
         return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
     }
@@ -164,13 +174,13 @@ class DashboardController extends Controller
      */
     public function fileAction($id, $type)
     {
-        $cm = new CronManager();
-        $crons = $cm->get();
+        $cronManager = new CronManager();
+        $cronList = $cronManager->get();
 
         /**
-         * @var \FOA\CronBundle\Manager\Cron
+         * @var \FOA\CronBundle\Manager\Cron $cron
          */
-        $cron = $crons[$id];
+        $cron = $cronList[$id];
 
         $data = array();
         $data['file'] =  ($type == 'log') ? $cron->getLogFile(): $cron->getErrorFile();
@@ -190,11 +200,11 @@ class DashboardController extends Controller
      */
     protected function addFlash($type, $message)
     {
-        if ('' == $message || null === $message) {
+        if (empty($message)) {
             return;
         }
 
-        /* @var $session \Symfony\Component\HttpFoundation\Session */
+        /* @var \Symfony\Component\HttpFoundation\Session\SessionInterface $session */
         $session = $this->get('session');
 
         $session->getFlashBag()->add($type, $message);
