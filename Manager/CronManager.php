@@ -34,13 +34,13 @@ class CronManager
         // parsing cron file
         $process = new Process('crontab -l');
         $process->run();
-        $lines = \array_filter(\explode(PHP_EOL, $process->getOutput()), function ($line) {
-            return '' != \trim($line);
+        $lines = array_filter(explode(PHP_EOL, $process->getOutput()), function ($line) {
+            return '' != trim($line);
         });
 
         foreach ($lines as $lineNumber => $line) {
             // if line is nt a comment, convert it to a cron
-            if (\strpos($line, '#suspended: ', 0) === 0 || 0 !== \strpos($line, '#', 0)) {
+            if (strpos($line, '#suspended: ', 0) === 0 || 0 !== strpos($line, '#', 0)) {
                 try {
                     $line = Cron::parse($line);
                 } catch (\Exception $e) {
@@ -60,7 +60,7 @@ class CronManager
      */
     public function get()
     {
-        return \array_filter($this->lines, function ($line) {
+        return array_filter($this->lines, function ($line) {
             return $line instanceof Cron;
         });
     }
@@ -84,7 +84,7 @@ class CronManager
      */
     public function remove($index)
     {
-        $this->lines = \array_diff_key($this->lines, array($index => ''));
+        $this->lines = array_diff_key($this->lines, array($index => ''));
 
         $this->write();
     }
@@ -94,9 +94,9 @@ class CronManager
      */
     public function write()
     {
-        $file = \tempnam(\sys_get_temp_dir(), 'cron');
+        $file = tempnam(sys_get_temp_dir(), 'cron');
 
-        \file_put_contents($file, $this->getRaw() . PHP_EOL);
+        file_put_contents($file, $this->getRaw() . PHP_EOL);
 
         $process = new Process('crontab ' . $file);
         $process->run();
@@ -132,6 +132,6 @@ class CronManager
      */
     public function getRaw()
     {
-        return \implode(PHP_EOL, $this->lines);
+        return implode(PHP_EOL, $this->lines);
     }
 }

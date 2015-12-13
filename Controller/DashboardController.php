@@ -184,7 +184,7 @@ class DashboardController extends Controller
 
         $data = array();
         $data['file'] =  ($type == 'log') ? $cron->getLogFile(): $cron->getErrorFile();
-        $data['content'] = \file_get_contents($data['file']);
+        $data['content'] = file_get_contents($data['file']);
 
         $serializer = new Serializer(array(), array('json' => new JsonEncoder()));
 

@@ -96,8 +96,6 @@ class Cron
     /**
      * Parses a cron line into a Cron instance
      *
-     * TODO: this deserves a serious regex
-     *
      * @static
      * @param $cron string The cron line
      * @return Cron
@@ -109,39 +107,39 @@ class Cron
             $isSuspended = true;
         }
 
-        $parts = \explode(' ', $cron);
+        $parts = explode(' ', $cron);
 
-        $command = \implode(' ', \array_slice($parts, 5));
+        $command = implode(' ', array_slice($parts, 5));
 
         // extract comment
-        if (\strpos($command, '#')) {
-            list($command, $comment) = \explode('#', $command);
-            $comment = \trim($comment);
+        if (strpos($command, '#')) {
+            list($command, $comment) = explode('#', $command);
+            $comment = trim($comment);
         }
 
         // extract error file
-        if (\strpos($command, '2>')) {
-            list($command, $errorFile) = \explode('2>', $command);
-            $errorFile = \trim($errorFile);
+        if (strpos($command, '2>')) {
+            list($command, $errorFile) = explode('2>', $command);
+            $errorFile = trim($errorFile);
         }
 
         // extract log file
-        if (\strpos($command, '>')) {
-            list($command, $logFile) = \explode('>', $command);
-            $logFile = \trim($logFile);
+        if (strpos($command, '>')) {
+            list($command, $logFile) = explode('>', $command);
+            $logFile = trim($logFile);
         }
 
         // compute last run time, and file size
         $lastRunTime = null;
         $logSize = null;
         $errorSize = null;
-        if (isset($logFile) && \file_exists($logFile)) {
-            $lastRunTime = \filemtime($logFile);
-            $logSize = \filesize($logFile);
+        if (isset($logFile) && file_exists($logFile)) {
+            $lastRunTime = filemtime($logFile);
+            $logSize = filesize($logFile);
         }
-        if (isset($errorFile) && \file_exists($errorFile)) {
-            $lastRunTime = \max($lastRunTime ? : 0, \filemtime($errorFile));
-            $errorSize = \filesize($errorFile);
+        if (isset($errorFile) && file_exists($errorFile)) {
+            $lastRunTime = max($lastRunTime ? : 0, filemtime($errorFile));
+            $errorSize = filesize($errorFile);
         }
 
         // compute status
@@ -431,13 +429,13 @@ class Cron
     }
 
     /**
-     * Concats time data to get the time expression
+     * Concatenate time data to get the time expression
      *
      * @return string
      */
     public function getExpression()
     {
-        return \sprintf('%s %s %s %s %s', $this->minute, $this->hour, $this->dayOfMonth, $this->month, $this->dayOfWeek);
+        return sprintf('%s %s %s %s %s', $this->minute, $this->hour, $this->dayOfMonth, $this->month, $this->dayOfWeek);
     }
 
     /**
