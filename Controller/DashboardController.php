@@ -38,9 +38,10 @@ class DashboardController extends Controller
     /**
      * Add a cron to the cron table
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         $cronManager = new CronManager();
         $cron = new Cron();
@@ -48,7 +49,6 @@ class DashboardController extends Controller
         $this->addFlash('error', $cronManager->getError());
         $form = $this->createForm(new CronType(), $cron);
 
-        $request = $this->get('request');
         $form->handleRequest($request);
         if ($form->isValid()) {
             $cronManager->add($cron);
