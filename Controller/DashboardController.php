@@ -28,11 +28,11 @@ class DashboardController extends Controller
 
         $form = $this->createForm(new CronType(), new Cron());
 
-        return $this->render('FOACronBundle:Dashboard:index.html.twig', array(
+        return $this->render('FOACronBundle:Dashboard:index.html.twig', [
             'crons' => $cronManager->get(),
             'raw'   => $cronManager->getRaw(),
-            'form'  => $form->createView(),
-        ));
+            'form'  => $form->createView()
+        ]);
     }
 
     /**
@@ -58,11 +58,11 @@ class DashboardController extends Controller
             return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
         }
 
-        return $this->render('FOACronBundle:Dashboard:index.html.twig', array(
+        return $this->render('FOACronBundle:Dashboard:index.html.twig', [
             'crons' => $cronManager->get(),
             'raw'   => $cronManager->getRaw(),
-            'form'  => $form->createView(),
-        ));
+            'form'  => $form->createView()
+        ]);
     }
 
     /**
@@ -90,9 +90,9 @@ class DashboardController extends Controller
             return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
         }
 
-        return $this->render('FOACronBundle:Dashboard:edit.html.twig', array(
-            'form'  => $form->createView(),
-        ));
+        return $this->render('FOACronBundle:Dashboard:edit.html.twig', [
+            'form'  => $form->createView()
+        ]);
     }
 
     /**
@@ -182,11 +182,11 @@ class DashboardController extends Controller
          */
         $cron = $cronList[$id];
 
-        $data = array();
+        $data = [];
         $data['file'] =  ($type == 'log') ? $cron->getLogFile(): $cron->getErrorFile();
         $data['content'] = file_get_contents($data['file']);
 
-        $serializer = new Serializer(array(), array('json' => new JsonEncoder()));
+        $serializer = new Serializer([], ['json' => new JsonEncoder()]);
 
         return new Response($serializer->serialize($data, 'json'));
     }

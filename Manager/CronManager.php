@@ -13,7 +13,7 @@ class CronManager
      *
      * @var array
      */
-    protected $lines = array();
+    protected $lines = [];
 
     /**
      * The error when using the comment 'crontab'
@@ -84,7 +84,7 @@ class CronManager
      */
     public function remove($index)
     {
-        $this->lines = array_diff_key($this->lines, array($index => ''));
+        $this->lines = array_diff_key($this->lines, [$index => '']);
 
         $this->write();
     }

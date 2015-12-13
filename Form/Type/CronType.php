@@ -20,22 +20,22 @@ class CronType extends AbstractType
             ->add('month')
             ->add('dayOfWeek')
             ->add('command')
-            ->add('logFile', 'text', array(
+            ->add('logFile', 'text', [
                 'required' => false,
-            ))
-            ->add('errorFile', 'text', array(
+            ])
+            ->add('errorFile', 'text', [
                 'required' => false,
-            ))
-            ->add('comment', 'text', array(
+            ])
+            ->add('comment', 'text', [
                 'required' => false,
-            ));
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'FOA\CronBundle\Manager\Cron'
-        ));
+        ]);
     }
 
     /**
