@@ -1,5 +1,7 @@
 {% extends 'FOACronBundle::layout.html.twig' %}
 
+{% trans_default_domain "messages" %}
+
 {% block content %}
     <div class="navigation clearfix navbar-extra">
         <div class="row-fluid">
@@ -16,7 +18,7 @@
     <section id="edit-cron" class="container-fluid">
         <form role="form" method="post" action="{{ path('defaul_value.cron.default.edit', {'id':index}) }}">
             {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
-            <input type="submit" class="btn btn-success btn-lg" value="{{ 'Edit' | trans({}, 'BCCCronManagerBundle') }}"/>
+            <input type="submit" class="btn btn-success btn-lg" value="{{ 'cron.edit'|trans }}"/>
         </form>
 
     </section>

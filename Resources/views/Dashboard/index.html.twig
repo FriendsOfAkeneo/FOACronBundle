@@ -1,5 +1,7 @@
 {% extends 'FOACronBundle::layout.html.twig' %}
 
+{% trans_default_domain "messages" %}
+
 {% block content %}
 
     <div class="navigation clearfix navbar-extra">
@@ -16,42 +18,48 @@
     </div>
     <section id="existing-crons" class="container-fluid">
         <div class="page-header">
-            <h4>{{ 'Cron list' | trans({}, 'BCCCronManagerBundle') }}</h4>
+            <h4>
+                {{ 'cron.list'|trans }}
+            </h4>
         </div>
         {% for index, cron in crons %}
             <div class="row">
                 <div class="span2">
-                    <span class="label label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{%else%}success{% endif %}">
+                    <span class="label label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{% else %}success{% endif %}">
                         {{ cron.status | trans({}, 'BCCCronManagerBundle') | capitalize }}
                     </span>
                 </div>
                 <h3 class="span{% if cron.suspended %} text-muted{% endif %}">
                     {{ cron.expression }} {{ cron.command }}
                 </h3>
-                <button class="btn btn-default pull-right" data-toggle="collapse" data-target="#cron-{{ index }}"><i class="icon-search"></i>{{ 'Details' | trans({}, 'BCCCronManagerBundle') }}</button>
+                <button class="btn btn-default pull-right" data-toggle="collapse" data-target="#cron-{{ index }}"><i
+                            class="icon-search"></i>{{ 'cron.details'|trans }}</button>
             </div>
             <div class="collapse in" id="cron-{{ index }}">
-                <table class="table table-striped" >
+                <table class="table table-striped">
                     <tr>
-                        <th class="span2" style="color: #808080;"><i class="glyphicon glyphicon-time"></i>{{ 'Last Run' | trans({}, 'BCCCronManagerBundle') }}</th>
+                        <th class="span2" style="color: #808080;"><i
+                                    class="glyphicon glyphicon-time"></i>{{ 'cron.last_run'|trans }}</th>
                         <td colspan="2">{{ cron.lastRunTime ? cron.lastRunTime | date : 'Unknown' | trans({}, 'BCCCronManagerBundle') }}</td>
                     </tr>
                     {% if cron.comment %}
                         <tr>
-                            <th style="color: #049cdb;"><i class="glyphicon glyphicon-comment"></i>{{ 'Comment' | trans({}, 'BCCCronManagerBundle') }}</th>
+                            <th style="color: #049cdb;"><i
+                                        class="glyphicon glyphicon-comment"></i>{{ 'cron.comment'|trans }}</th>
                             <td colspan="2">{{ cron.comment }}</td>
                         </tr>
                     {% endif %}
                     {% if cron.logFile %}
                         <tr>
-                            <th style="color: #46a546;"><i class="glyphicon glyphicon-file"></i>{{ 'Log File' | trans({}, 'BCCCronManagerBundle') }}</th>
+                            <th style="color: #46a546;"><i
+                                        class="glyphicon glyphicon-file"></i>{{ 'cron.log_file'|trans }}</th>
                             <td>{{ cron.logFile }}</td>
                             <td>
                                 {% if cron.logSize %}
                                     <a class="btn btn-default btn-info pull-right modal-link"
                                        href="{{ path('BCCCronManagerBundle_file', {'id':index, 'type': 'log'}) }}">
                                         <i class="glyphicon glyphicon-search glyphicon-white"></i>
-                                        {{ 'Log File' | trans({}, 'BCCCronManagerBundle') }}
+                                        {{ 'cron.log_file'|trans }}
                                     </a>
                                 {% endif %}
                             </td>
@@ -59,22 +67,26 @@
                     {% endif %}
                     {% if cron.errorFile %}
                         <tr>
-                            <th style="color: #9d261d;"><i class="glyphicon glyphicon-file"></i>{{ 'Error File' | trans({}, 'BCCCronManagerBundle') }}</th>
+                            <th style="color: #9d261d;"><i
+                                        class="glyphicon glyphicon-file"></i>{{ 'cron.error_file'|trans }}</th>
                             <td>{{ cron.errorFile }}</td>
                             <td>
                                 {% if cron.errorSize %}
                                     <a class="btn btn-default btn-info pull-right modal-link"
                                        href="{{ path('BCCCronManagerBundle_file', {'id':index, 'type': 'error'}) }}">
                                         <i class="glyphicon glyphicon-search glyphicon-white"></i>
-                                        {{ 'Error file' | trans({}, 'BCCCronManagerBundle') }}
+                                        {{ 'cron.error_file'|trans }}
                                     </a>
                                 {% endif %}
                             </td>
                         </tr>
                     {% endif %}
                     <tr>
-                        <th style="color: #808080;"><i class="glyphicon glyphicon-cog"></i>{{ 'Raw cron' | trans({}, 'BCCCronManagerBundle') }}</th>
-                        <td colspan="2"><pre>{{ cron }}</pre></td>
+                        <th style="color: #808080;"><i class="glyphicon glyphicon-cog"></i>{{ 'cron.raw_cron'|trans }}
+                        </th>
+                        <td colspan="2">
+                            <pre>{{ cron }}</pre>
+                        </td>
                     </tr>
                     <tr>
                         <th></th>
@@ -83,25 +95,25 @@
                                 <a class="btn btn-default btn-primary"
                                    href="{{ path('defaul_value.cron.default.edit', {'id':index}) }}">
                                     <i class="glyphicon glyphicon-edit glyphicon-white"></i>
-                                    {{ 'Edit' | trans({}, 'BCCCronManagerBundle') }}
+                                    {{ 'cron.edit'|trans }}
                                 </a>
                                 {% if cron.suspended %}
                                     <a class="btn btn-default btn-success"
                                        href="{{ path('BCCCronManagerBundle_wakeup', {'id':index}) }}">
                                         <i class="glyphicon glyphicon-play glyphicon-white"></i>
-                                        {{ 'Wake up' | trans({}, 'BCCCronManagerBundle') }}
+                                        {{ 'cron.wake_up'|trans }}
                                     </a>
                                 {% else %}
                                     <a class="btn btn-default btn-warning"
                                        href="{{ path('BCCCronManagerBundle_suspend', {'id':index}) }}">
                                         <i class="glyphicon glyphicon-pause glyphicon-white"></i>
-                                        {{ 'Suspend' | trans({}, 'BCCCronManagerBundle') }}
+                                        {{ 'cron.suspend'|trans }}
                                     </a>
                                 {% endif %}
                                 <a class="btn btn-default btn-danger"
                                    href="{{ path('BCCCronManagerBundle_remove', {'id':index}) }}">
                                     <i class="glyphicon glyphicon-trash glyphicon-white"></i>
-                                    {{ 'Remove' | trans({}, 'BCCCronManagerBundle') }}
+                                    {{ 'cron.remove'|trans }}
                                 </a>
                             </span>
                         </td>
@@ -113,11 +125,12 @@
     </section>
     <section id="add-cron" class="container-fluid">
         <div class="page-header">
-            <h4>{{ 'Add a cron' | trans({}, 'BCCCronManagerBundle') }}</h4>
+            <h4>{{ 'cron.add_a_cron'|trans }}</h4>
         </div>
         <form role="form" method="post" action="{{ path('BCCCronManagerBundle_add') }}">
             {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
-            <input type="submit" class="btn btn-success btn-lg" value="{{ 'Add' | trans({}, 'BCCCronManagerBundle') }}"/>
+            <input type="submit" class="btn btn-success btn-lg"
+                   value="{{ 'cron.add'|trans }}"/>
         </form>
     </section>
 {% endblock %}
