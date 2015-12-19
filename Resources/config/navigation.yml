@@ -1,0 +1,14 @@
+oro_menu_config:
+    items:
+        pim_cron_manager:
+            label: Cron Management
+            route: foa_cron_index
+    tree:
+        application_menu:
+            children:
+                system_tab:
+                    children:
+                        pim_cron_manager: ~
+
+oro_titles:
+    pim_enrich_attributegroup_index: cron.page_title
