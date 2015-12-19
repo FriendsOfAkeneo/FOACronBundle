@@ -11,11 +11,6 @@
     {% block content %}{% endblock %}
     <script type="text/javascript">
         (function ($) {
-            $(document).ajaxComplete(function () {
-                document.title = "Akeneo Cron Management"; // @TODO ugly temporary solution
-            });
-
-            document.title = "Akeneo Cron Management"; // @TODO ugly temporary solution
             $(".collapse").collapse();
             $('.time-input, .command-preset, .time-menu, .log-preset').tooltip({});
             $('.command-preset').on('click', function () {

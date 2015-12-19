@@ -127,7 +127,7 @@
         <div class="page-header">
             <h4>{{ 'cron.add_a_cron'|trans }}</h4>
         </div>
-        <form role="form" method="post" action="{{ path('foa_cron_add') }}">
+        <form method="post" action="{{ path('foa_cron_add') }}">
             {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
             <input type="submit" class="btn btn-success btn-lg"
                    value="{{ 'cron.add'|trans }}"/>
