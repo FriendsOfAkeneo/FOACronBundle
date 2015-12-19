@@ -57,7 +57,7 @@
                             <td>
                                 {% if cron.logSize %}
                                     <a class="btn btn-default btn-info pull-right modal-link"
-                                       href="{{ path('BCCCronManagerBundle_file', {'id':index, 'type': 'log'}) }}">
+                                       href="{{ path('foa_cron_file', {'id':index, 'type': 'log'}) }}">
                                         <i class="glyphicon glyphicon-search glyphicon-white"></i>
                                         {{ 'cron.log_file'|trans }}
                                     </a>
@@ -73,7 +73,7 @@
                             <td>
                                 {% if cron.errorSize %}
                                     <a class="btn btn-default btn-info pull-right modal-link"
-                                       href="{{ path('BCCCronManagerBundle_file', {'id':index, 'type': 'error'}) }}">
+                                       href="{{ path('foa_cron_file', {'id':index, 'type': 'error'}) }}">
                                         <i class="glyphicon glyphicon-search glyphicon-white"></i>
                                         {{ 'cron.error_file'|trans }}
                                     </a>
@@ -99,19 +99,19 @@
                                 </a>
                                 {% if cron.suspended %}
                                     <a class="btn btn-default btn-success"
-                                       href="{{ path('BCCCronManagerBundle_wakeup', {'id':index}) }}">
+                                       href="{{ path('foa_cron_wakeup', {'id':index}) }}">
                                         <i class="glyphicon glyphicon-play glyphicon-white"></i>
                                         {{ 'cron.wake_up'|trans }}
                                     </a>
                                 {% else %}
                                     <a class="btn btn-default btn-warning"
-                                       href="{{ path('BCCCronManagerBundle_suspend', {'id':index}) }}">
+                                       href="{{ path('foa_cron_suspend', {'id':index}) }}">
                                         <i class="glyphicon glyphicon-pause glyphicon-white"></i>
                                         {{ 'cron.suspend'|trans }}
                                     </a>
                                 {% endif %}
                                 <a class="btn btn-default btn-danger"
-                                   href="{{ path('BCCCronManagerBundle_remove', {'id':index}) }}">
+                                   href="{{ path('foa_cron_remove', {'id':index}) }}">
                                     <i class="glyphicon glyphicon-trash glyphicon-white"></i>
                                     {{ 'cron.remove'|trans }}
                                 </a>
@@ -127,7 +127,7 @@
         <div class="page-header">
             <h4>{{ 'cron.add_a_cron'|trans }}</h4>
         </div>
-        <form role="form" method="post" action="{{ path('BCCCronManagerBundle_add') }}">
+        <form role="form" method="post" action="{{ path('foa_cron_add') }}">
             {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
             <input type="submit" class="btn btn-success btn-lg"
                    value="{{ 'cron.add'|trans }}"/>

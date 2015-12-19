@@ -55,7 +55,7 @@ class DashboardController extends Controller
             $this->addFlash('message', $cronManager->getOutput());
             $this->addFlash('error', $cronManager->getError());
 
-            return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
+            return $this->redirect($this->generateUrl('foa_cron_index'));
         }
 
         return $this->render('FOACronBundle:Dashboard:index.html.twig', [
@@ -87,7 +87,7 @@ class DashboardController extends Controller
             $this->addFlash('message', $cronManager->getOutput());
             $this->addFlash('error', $cronManager->getError());
 
-            return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
+            return $this->redirect($this->generateUrl('foa_cron_index'));
         }
 
         return $this->render('FOACronBundle:Dashboard:edit.html.twig', [
@@ -118,7 +118,7 @@ class DashboardController extends Controller
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
+        return $this->redirect($this->generateUrl('foa_cron_index'));
     }
 
     /**
@@ -144,7 +144,7 @@ class DashboardController extends Controller
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
+        return $this->redirect($this->generateUrl('foa_cron_index'));
     }
 
     /**
@@ -162,7 +162,7 @@ class DashboardController extends Controller
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        return $this->redirect($this->generateUrl('BCCCronManagerBundle_index'));
+        return $this->redirect($this->generateUrl('foa_cron_index'));
     }
 
     /**

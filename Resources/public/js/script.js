@@ -1,19 +1,16 @@
-$(document).ready(function(){
-
+(function ($) {
     $(".collapse").collapse();
-    $('.time-input, .command-preset, .time-menu, .log-preset').tooltip({
-
-    });
+    $('.time-input, .command-preset, .time-menu, .log-preset').tooltip({});
 
     var presets = {
-        'yearly' : ['0', '0', '1', '1', '*'],
+        'yearly':  ['0', '0', '1', '1', '*'],
         'monthly': ['0', '0', '1', '*', '*'],
-        'weekly' : ['0', '0', '*', '*', '0'],
-        'daily'  : ['0', '0', '*', '*', '*'],
-        'hourly' : ['0', '*', '*', '*', '*']
+        'weekly':  ['0', '0', '*', '*', '0'],
+        'daily':   ['0', '0', '*', '*', '*'],
+        'hourly':  ['0', '*', '*', '*', '*']
     };
 
-    $('.time-preset').on('click', function(e){
+    $('.time-preset').on('click', function (e) {
         e.preventDefault();
         var $link = $(this);
 
@@ -26,11 +23,11 @@ $(document).ready(function(){
         $('#cron_dayOfWeek').val(preset[4]);
     });
 
-    $('.command-preset').on('click', function(){
+    $('.command-preset').on('click', function () {
         $('#cron_command').val($(this).attr('value'));
     });
 
-    $('.log-preset').on('click', function(){
+    $('.log-preset').on('click', function () {
         var $button = $(this);
 
         $button.parent().parent().find('input').val($button.attr('value'));
@@ -39,7 +36,7 @@ $(document).ready(function(){
     $('.modal-link').on('click', function (e) {
         e.preventDefault();
         var $link = $(this);
-        $.getJSON($link.attr('href'), function(data){
+        $.getJSON($link.attr('href'), function (data) {
             var $modal = $('#modal');
             $modal.find('.modal-header h3').text(data.file);
             $modal.find('.modal-body pre').text(data.content);
@@ -49,4 +46,4 @@ $(document).ready(function(){
             });
         });
     });
-});
+})(jQuery);
