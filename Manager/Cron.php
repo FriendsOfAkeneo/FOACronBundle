@@ -144,9 +144,9 @@ class Cron
 
         // compute status
         $status = 'error';
-        if ($logSize === null && $errorSize === null) {
+        if (!$logSize && !$errorSize) {
             $status = 'unknown';
-        } else if ($errorSize === null || $errorSize == 0) {
+        } else if (!$errorSize || $errorSize == 0) {
             $status = 'success';
         }
 
