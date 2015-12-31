@@ -11,4 +11,5 @@ oro_menu_config:
                         pim_cron_manager: ~
 
 oro_titles:
-    pim_enrich_attributegroup_index: cron.page_title
+    foa_cron_index: cron.page_title
+    foa_cron_edit:  cron.edit
