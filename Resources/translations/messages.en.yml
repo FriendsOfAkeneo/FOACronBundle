@@ -13,3 +13,8 @@ cron:
   suspend:    'Suspend'
   remove:     'Remove'
   add_a_cron: 'Add a cron'
+
+foa_cron:
+  acl:
+    locale:
+      index: 'Cron management'

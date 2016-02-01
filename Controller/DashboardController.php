@@ -9,6 +9,7 @@ use FOA\CronBundle\Form\Type\CronType;
 use FOA\CronBundle\Manager\Cron;
 use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 
 /**
  * Display dashboard and manage CRUD operations
@@ -17,6 +18,8 @@ class DashboardController extends Controller
 {
     /**
      * Displays the current crons and a form to add a new one.
+     *
+     * @AclAncestor("foa_cron_management_index")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
