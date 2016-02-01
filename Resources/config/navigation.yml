@@ -3,7 +3,7 @@ oro_menu_config:
         pim_cron_manager:
             label: 'Cron Management'
             route: 'foa_cron_index'
-            aclResourceId: pim_user_user_index
+            aclResourceId: foa_cron_management_index
             extras:
                 routes: ['/^cron-manager/']
                 description: Cron management index page
