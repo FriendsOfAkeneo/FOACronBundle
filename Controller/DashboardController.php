@@ -10,6 +10,8 @@ use FOA\CronBundle\Manager\Cron;
 use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Display dashboard and manage CRUD operations
@@ -17,7 +19,7 @@ use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 class DashboardController extends Controller
 {
     /**
-     * Displays the current crons and a form to add a new one.
+     * Displays the current crontab and a form to add a new one.
      *
      * @AclAncestor("foa_cron_management_index")
      *
@@ -41,8 +43,8 @@ class DashboardController extends Controller
     /**
      * Add a cron to the cron table
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function addAction(Request $request)
     {
@@ -72,7 +74,7 @@ class DashboardController extends Controller
      * Edit a cron
      *
      * @param $id - the line of the cron in the cron table
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function editAction($id)
     {
@@ -102,7 +104,7 @@ class DashboardController extends Controller
      * Wake up a cron from the cron table
      *
      * @param $id - the line of the cron in the cron table
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function wakeupAction($id)
     {
@@ -112,7 +114,7 @@ class DashboardController extends Controller
         $this->addFlash('error', $cronManager->getError());
 
         /**
-         * @var \FOA\CronBundle\Manager\Cron $cron
+         * @var Cron $cron
          */
         $cron = $cronList[$id];
         $cron->setSuspended(false);
@@ -128,7 +130,7 @@ class DashboardController extends Controller
      * Suspend a cron from the cron table
      *
      * @param $id - the line of the cron in the cron table
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function suspendAction($id)
     {
@@ -138,7 +140,7 @@ class DashboardController extends Controller
         $this->addFlash('error', $cronManager->getError());
 
         /**
-         * @var \FOA\CronBundle\Manager\Cron $cron
+         * @var Cron $cron
          */
         $cron = $cronList[$id];
         $cron->setSuspended(true);
@@ -154,7 +156,7 @@ class DashboardController extends Controller
      * Remove a cron from the cron table
      *
      * @param $id - the line of the cron in the cron table
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function removeAction($id)
     {
@@ -173,7 +175,7 @@ class DashboardController extends Controller
      *
      * @param $id - the line of the cron in the cron table
      * @param $type - the type of file, log or error
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function fileAction($id, $type)
     {
@@ -181,7 +183,7 @@ class DashboardController extends Controller
         $cronList = $cronManager->get();
 
         /**
-         * @var \FOA\CronBundle\Manager\Cron $cron
+         * @var Cron $cron
          */
         $cron = $cronList[$id];
 
@@ -207,9 +209,7 @@ class DashboardController extends Controller
             return;
         }
 
-        /* @var \Symfony\Component\HttpFoundation\Session\SessionInterface $session */
         $session = $this->get('session');
-
         $session->getFlashBag()->add($type, $message);
     }
 }
