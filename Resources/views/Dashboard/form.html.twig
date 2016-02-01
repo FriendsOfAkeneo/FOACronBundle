@@ -1,0 +1,113 @@
+{% form_theme form 'FOACronBundle:Form:fields.html.twig' %}
+
+<div class="row">
+    <em class="span">
+        {{ 'Keep in mind that cron user is %user% and its root directory is %root%.' | trans({'%user%': '<strong>'~wwwUser.name~'</strong>', '%root%': '<strong>'~wwwUser.dir~'</strong>'}, 'BCCCronManagerBundle') | raw }}
+    </em>
+</div>
+<br/>
+
+<div class="row">
+    {{ form_errors(form.minute) }}
+    {{ form_errors(form.hour) }}
+    {{ form_errors(form.dayOfMonth) }}
+    {{ form_errors(form.month) }}
+    {{ form_errors(form.dayOfWeek) }}
+</div>
+
+<div >
+    <div class="{{ form.minute.vars.errors ? 'error' : ''}}">
+        <label>Minute: </label>
+        {{ form_widget(form.minute, {'attr':{
+                'class': 'time-input form-control ',
+                'data-original-title': 'Minute' | trans ({}, 'BCCCronManagerBundle')
+            }})
+        }}
+    </div>
+    <div class="{{ form.hour.vars.errors ? 'error' : ''}}">
+        <label>Hour: </label>
+        {{ form_widget(form.hour, {'attr':{
+                'class': 'time-input form-control ',
+                'data-original-title': 'Hour' | trans ({}, 'BCCCronManagerBundle')
+            }})
+        }}
+    </div>
+    <div class="{{ form.dayOfMonth.vars.errors ? 'error' : ''}}">
+        <label>Day of Month: </label>
+        {{ form_widget(form.dayOfMonth, {'attr':{
+                'class': 'time-input form-control ',
+                'data-original-title': 'Day Of Month' | trans ({}, 'BCCCronManagerBundle')
+            }})
+        }}
+    </div>
+    <div class="{{ form.month.vars.errors ? 'error' : ''}}">
+        <label>Month: </label>
+        {{ form_widget(form.month, {'attr':{
+                'class': 'time-input form-control ',
+                'data-original-title': 'Month' | trans ({}, 'BCCCronManagerBundle')
+            }})
+        }}
+    </div>
+    <div class="{{ form.dayOfWeek.vars.errors ? 'error' : ''}}">
+        <label>Day of Week: </label>
+        {{ form_widget(form.dayOfWeek, {'attr':{
+                'class': 'time-input form-control ',
+                'data-original-title': 'Day Of Week' | trans ({}, 'BCCCronManagerBundle')
+            }})
+        }}
+    </div>
+</div>
+
+<div class="{{ form.command.vars.errors ? 'error' : ''}}">
+    {{ form_errors(form.command) }}
+    <div class="input-group">
+        <span class="input-group-addon">
+            {{ form_label(form.command, 'Command', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
+        </span>
+        {{- form_widget(form.command, {'attr':{'class': 'form-control'}}) }}
+        <button type="button" class="btn btn-default command-preset" id="symfony-command" value="{{ symfonyCommand }}"
+                data-original-title="{{ 'Command sample' | trans({}, 'BCCCronManagerBundle') }}">
+            <span class="icon-pencil"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row form-group {{ form.logFile.vars.errors ? 'error' : ''}}">
+    {{ form_errors(form.logFile) }}
+    <div class="input-group span">
+        <span class="input-group-addon">
+            {{ form_label(form.logFile, 'Log File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
+        </span>
+        {{- form_widget(form.logFile, {'attr':{'class': 'form-control col-md-10'}}) }}
+        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}"
+                data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
+            <span class="icon-pencil"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row form-group {{ form.errorFile.vars.errors ? 'error' : ''}}">
+    {{ form_errors(form.errorFile) }}
+    <div class="input-group span">
+        <span class="input-group-addon">
+            {{ form_label(form.errorFile, 'Error File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
+        </span>
+        {{- form_widget(form.errorFile, {'attr':{'class': 'form-control col-md-10'}}) }}
+        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}"
+                data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
+            <span class="icon-pencil"></span>
+        </button>
+    </div>
+</div>
+
+<div class="row form-group {{ form.comment.vars.errors ? 'error' : ''}}">
+    {{ form_errors(form.comment) }}
+    <div class="input-group span">
+        <span class="input-group-addon">
+            {{ form_label(form.comment, 'Comment', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
+        </span>
+        {{- form_widget(form.comment, {'attr':{'class': 'form-control col-md-10'}}) }}
+    </div>
+</div>
+
+{{ form_rest(form) }}

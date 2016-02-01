@@ -1,0 +1,30 @@
+foa_cron_index:
+  pattern: /
+  defaults: { _controller: FOACronBundle:Dashboard:index }
+
+foa_cron_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: FOACronBundle:Dashboard:edit }
+
+foa_cron_add:
+  pattern: /add
+  defaults: { _controller: FOACronBundle:Dashboard:add }
+  methods: [POST]
+
+foa_cron_wakeup:
+  pattern: /{id}/wakeup
+  defaults: { _controller: FOACronBundle:Dashboard:wakeup }
+
+foa_cron_suspend:
+  pattern: /{id}/suspend
+  defaults: { _controller: FOACronBundle:Dashboard:suspend }
+
+foa_cron_remove:
+  pattern: /{id}/remove
+  defaults: { _controller: FOACronBundle:Dashboard:remove }
+
+foa_cron_file:
+  pattern: /{id}/file/{type}
+  defaults: { _controller: FOACronBundle:Dashboard:file }
+  requirements:
+      type: log|error

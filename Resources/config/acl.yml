@@ -1,0 +1,4 @@
+# Cron management (System tab)
+foa_cron_management_index:
+    type: action
+    label: foa_cron.acl.locale.index
