@@ -13,10 +13,18 @@
     "authors" : [
     ],
     "require" : {
-        "php": ">=5.3"
+        "php": ">=5.4"
     },
     "require-dev": {
+        "akeneo/pim-community-dev": "1.5.x-dev@dev",
+        "doctrine/migrations": "1.0.0-alpha3@alpha"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/pim-community-dev.git"
+        }
+    ],
     "autoload" : {
         "psr-4" : { "FOA\\CronBundle\\" : "" }
     },
