@@ -1,17 +1,18 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/FriendsOfAkeneo/FOACronBundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/FriendsOfAkeneo/FOACronBundle/?branch=develop)
 
-FOACronBundle - cron manager for Akeneo
+FOACronBundle - easy cron management from Akeneo dashboard
 =======================================
 
 ## Overview
-This bundle is adaptation of [BCCCronManagerBundle](https://github.com/michelsalib/BCCCronManagerBundle) to be compatible
-with Akeneo PIM. Also it has some code quality improvements.
+
+This bundle is adaptation of awesome [BCCCronManagerBundle](https://github.com/michelsalib/BCCCronManagerBundle) for Akeneo.
+This version provides some quality improvements and UI compatible with Akeneo.
 
 ## Installation
 
 1) Install bundle using [Composer](https://getcomposer.org/download/):
 
-```
+```bash
     composer install friendsofakeneo/cron-bundle
 ```
 
@@ -25,9 +26,19 @@ with Akeneo PIM. Also it has some code quality improvements.
         ];
         ...
 ```
-3) Register bundle routes in:
-
+3) Register bundle routes in `app/config/routing.yml`:
+```yml
+FOACronBundle:
+    resource: '@FOACronBundle/Resources/config/routing.xml'
+    prefix:   /cron-manager
+```
 
 ## Usage
 
+1) Configure access for users who can manage cron tasks in '..'
+...
+
+Now cron management should be available by 'System->Cron Management'.
+
 ### TODO
+1) Update UI to be more beauty and understandable;
