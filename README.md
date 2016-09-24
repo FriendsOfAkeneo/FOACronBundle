@@ -29,7 +29,7 @@ This version provides some quality improvements and UI compatible with Akeneo.
 3) Register bundle routes in `app/config/routing.yml`:
 ```yml
 FOACronBundle:
-    resource: '@FOACronBundle/Resources/config/routing.xml'
+    resource: '@FOACronBundle/Resources/config/routing.yml'
     prefix:   /cron-manager
 ```
 
