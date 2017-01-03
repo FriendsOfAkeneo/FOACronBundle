@@ -35,10 +35,14 @@ FOACronBundle:
 
 ## Usage
 
-1) Configure access for users who can manage cron tasks in '..'
-...
+1) Configure access for users who can manage cron tasks in 'System->Users Management->Roles'
+
+![Roles Management](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
 
 Now cron management should be available by 'System->Cron Management'.
+
+![Cron Management board](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+
 
 ### TODO
 1) Update UI to be more beauty and understandable;
