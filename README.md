@@ -37,11 +37,11 @@ FOACronBundle:
 
 1) Configure access for users who can manage cron tasks in 'System->Users Management->Roles'
 
-![Roles Management](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Roles Management](https://github.com/FriendsOfAkeneo/FOACronBundle/blob/develop/Resources/doc/images/roles-permissions.png)
 
 Now cron management should be available by 'System->Cron Management'.
 
-![Cron Management board](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![Cron Management board](https://github.com/FriendsOfAkeneo/FOACronBundle/blob/develop/Resources/doc/images/cron-dashboard.png)
 
 
 ### TODO
