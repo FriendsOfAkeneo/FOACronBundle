@@ -36,7 +36,7 @@ class DashboardController extends Controller
         return $this->render('FOACronBundle:Dashboard:index.html.twig', [
             'crons' => $cronManager->get(),
             'raw'   => $cronManager->getRaw(),
-            'form'  => $form->createView()
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -44,6 +44,7 @@ class DashboardController extends Controller
      * Add a cron to the cron table
      *
      * @param Request $request
+     *
      * @return RedirectResponse|Response
      */
     public function addAction(Request $request)
@@ -66,7 +67,7 @@ class DashboardController extends Controller
         return $this->render('FOACronBundle:Dashboard:index.html.twig', [
             'crons' => $cronManager->get(),
             'raw'   => $cronManager->getRaw(),
-            'form'  => $form->createView()
+            'form'  => $form->createView(),
         ]);
     }
 
@@ -74,6 +75,7 @@ class DashboardController extends Controller
      * Edit a cron
      *
      * @param $id - the line of the cron in the cron table
+     *
      * @return RedirectResponse|Response
      */
     public function editAction($id)
@@ -96,7 +98,7 @@ class DashboardController extends Controller
         }
 
         return $this->render('FOACronBundle:Dashboard:edit.html.twig', [
-            'form'  => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -104,6 +106,7 @@ class DashboardController extends Controller
      * Wake up a cron from the cron table
      *
      * @param $id - the line of the cron in the cron table
+     *
      * @return RedirectResponse
      */
     public function wakeupAction($id)
@@ -130,6 +133,7 @@ class DashboardController extends Controller
      * Suspend a cron from the cron table
      *
      * @param $id - the line of the cron in the cron table
+     *
      * @return RedirectResponse
      */
     public function suspendAction($id)
@@ -156,6 +160,7 @@ class DashboardController extends Controller
      * Remove a cron from the cron table
      *
      * @param $id - the line of the cron in the cron table
+     *
      * @return RedirectResponse
      */
     public function removeAction($id)
@@ -173,8 +178,9 @@ class DashboardController extends Controller
     /**
      * Gets a log file
      *
-     * @param $id - the line of the cron in the cron table
+     * @param $id   - the line of the cron in the cron table
      * @param $type - the type of file, log or error
+     *
      * @return Response
      */
     public function fileAction($id, $type)
@@ -188,7 +194,7 @@ class DashboardController extends Controller
         $cron = $cronList[$id];
 
         $data = [];
-        $data['file'] =  ($type == 'log') ? $cron->getLogFile(): $cron->getErrorFile();
+        $data['file'] = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
         $data['content'] = file_get_contents($data['file']);
 
         $serializer = new Serializer([], ['json' => new JsonEncoder()]);
@@ -201,7 +207,6 @@ class DashboardController extends Controller
      *
      * @param $type
      * @param $message
-     * @return mixed
      */
     protected function addFlash($type, $message)
     {
