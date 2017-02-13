@@ -1,8 +1,8 @@
 {
-    "name" : "friendsofakeneo/cron-bundle",
-    "type" : "symfony-bundle",
-    "description" : "",
-    "keywords" : [
+    "name": "friendsofakeneo/cron-bundle",
+    "type": "symfony-bundle",
+    "description": "CRON manager for Akeneo PIM",
+    "keywords": [
         "cron",
         "Symfony2",
         "Akeneo",
@@ -10,23 +10,22 @@
     ],
     "homepage": "https://github.com/FriendsOfAkeneo/FOACronBundle",
     "license": "MIT",
-    "authors" : [
+    "authors": [
+        {
+            "name": "Novikov Viktor"
+        }
     ],
-    "require" : {
+    "require": {
         "php": ">=5.4"
     },
     "require-dev": {
-        "akeneo/pim-community-dev": "1.5.x-dev@dev",
-        "doctrine/migrations": "1.0.0-alpha3@alpha"
+        "php": ">=5.4",
+        "friendsofphp/php-cs-fixer": "@stable"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/akeneo/pim-community-dev.git"
+    "autoload": {
+        "psr-4": {
+            "FOA\\CronBundle\\": ""
         }
-    ],
-    "autoload" : {
-        "psr-4" : { "FOA\\CronBundle\\" : "" }
     },
     "extra": {
         "branch-alias": {

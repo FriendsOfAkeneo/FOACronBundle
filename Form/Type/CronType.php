@@ -43,7 +43,7 @@ class CronType extends AbstractType
      *
      * @return string The name of this type
      */
-    function getName()
+    public function getName()
     {
         return 'cron';
     }
