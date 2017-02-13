@@ -111,20 +111,7 @@ class DashboardController extends Controller
      */
     public function wakeupAction($id)
     {
-        $cronManager = new CronManager();
-        $cronList = $cronManager->get();
-        $this->addFlash('message', $cronManager->getOutput());
-        $this->addFlash('error', $cronManager->getError());
-
-        /**
-         * @var Cron $cron
-         */
-        $cron = $cronList[$id];
-        $cron->setSuspended(false);
-
-        $cronManager->write();
-        $this->addFlash('message', $cronManager->getOutput());
-        $this->addFlash('error', $cronManager->getError());
+        $this->suspendTask($id, false);
 
         return $this->redirect($this->generateUrl('foa_cron_index'));
     }
@@ -138,22 +125,30 @@ class DashboardController extends Controller
      */
     public function suspendAction($id)
     {
+        $this->suspendTask($id, true);
+
+        return $this->redirect($this->generateUrl('foa_cron_index'));
+    }
+
+    /**
+     * Suspend a task from the cron table
+     *
+     * @param int $id - the line of the cron in the cron table
+     * @param bool $state
+     */
+    protected function suspendTask($id, $state)
+    {
         $cronManager = new CronManager();
         $cronList = $cronManager->get();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        /**
-         * @var Cron $cron
-         */
         $cron = $cronList[$id];
-        $cron->setSuspended(true);
+        $cron->setSuspended($state);
 
         $cronManager->write();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
-
-        return $this->redirect($this->generateUrl('foa_cron_index'));
     }
 
     /**
