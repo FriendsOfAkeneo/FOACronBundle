@@ -79,7 +79,7 @@
             {{ form_label(form.logFile, 'Log File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.logFile, {'attr':{'class': 'form-control col-md-10'}}) }}
-        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}"
+        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}/cron.log"
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
@@ -93,7 +93,7 @@
             {{ form_label(form.errorFile, 'Error File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.errorFile, {'attr':{'class': 'form-control col-md-10'}}) }}
-        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}"
+        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}/cron-errors.log"
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>

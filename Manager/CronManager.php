@@ -56,7 +56,7 @@ class CronManager
     /**
      * Gets the array of crons indexed by line number
      *
-     * @return array<Cron>
+     * @return Cron[]
      */
     public function get()
     {
@@ -80,7 +80,7 @@ class CronManager
     /**
      * Remove a cron from the cron table
      *
-     * @param $index - the line number
+     * @param int $index - the line number
      */
     public function remove($index)
     {
@@ -128,7 +128,7 @@ class CronManager
     /**
      * Gets a representation of the cron table file
      *
-     * @return mixed
+     * @return string
      */
     public function getRaw()
     {
