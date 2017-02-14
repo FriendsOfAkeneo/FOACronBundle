@@ -58,11 +58,28 @@ class CronManager
      *
      * @return Cron[]
      */
-    public function get()
+    public function getCrons()
     {
         return array_filter($this->lines, function ($line) {
             return $line instanceof Cron;
         });
+    }
+
+    /**
+     * Get a specific cron by its id
+     *
+     * @param int $id
+     *
+     * @return Cron
+     */
+    public function getById($id)
+    {
+        $cronList = $this->getCrons();
+        if (!isset($cronList[$id])) {
+            throw new \InvalidArgumentException(sprintf('Unknown cron ID %d', $id));
+        }
+
+        return $cronList[$id];
     }
 
     /**
