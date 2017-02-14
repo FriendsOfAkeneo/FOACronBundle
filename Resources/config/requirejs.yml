@@ -1,0 +1,3 @@
+config:
+    paths:
+        foacron/system/configuration: foacron/js/system
