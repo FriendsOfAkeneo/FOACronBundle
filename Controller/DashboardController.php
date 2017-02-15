@@ -2,8 +2,6 @@
 
 namespace FOA\CronBundle\Controller;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use FOA\CronBundle\Form\Type\CronType;
 use FOA\CronBundle\Manager\Cron;
@@ -15,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Display dashboard and manage CRUD operations
+ * @author Novikov Viktor
  */
 class DashboardController extends Controller
 {
@@ -81,10 +80,10 @@ class DashboardController extends Controller
     public function editAction($id)
     {
         $cronManager = new CronManager();
-        $cronList = $cronManager->getCrons();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
-        $form = $this->createForm(new CronType(), $cronList[$id]);
+        $cron = $cronManager->getById($id);
+        $form = $this->createForm(new CronType(), $cron);
 
         $request = $this->get('request');
         $form->handleRequest($request);
@@ -139,11 +138,10 @@ class DashboardController extends Controller
     protected function suspendTask($id, $state)
     {
         $cronManager = new CronManager();
-        $cronList = $cronManager->getCrons();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        $cron = $cronList[$id];
+        $cron = $cronManager->getById($id);
         $cron->setSuspended($state);
 
         $cronManager->write();
