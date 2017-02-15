@@ -2,12 +2,9 @@
 
 namespace FOA\CronBundle\Controller;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 
 /**
  * Display and manage log files
@@ -26,14 +23,13 @@ class LogController extends Controller
     {
         $cronManager = new CronManager();
         $cron = $cronManager->getById($id);
+        $filepath = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
+        $content = file_get_contents($filepath);
 
-        $data = [];
-        $data['file'] = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
-        $data['content'] = file_get_contents($data['file']);
-
-        $serializer = new Serializer([], ['json' => new JsonEncoder()]);
-
-        return new Response($serializer->serialize($data, 'json'));
+        return $this->render('FOACronBundle:Dashboard:log.html.twig', [
+            'filepath' => $filepath,
+            'content'  => $content,
+        ]);
     }
 
     /**
