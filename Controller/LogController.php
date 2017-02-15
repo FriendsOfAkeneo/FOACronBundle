@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Display and manage log files
+ * @author Novikov Viktor
  */
 class LogController extends Controller
 {

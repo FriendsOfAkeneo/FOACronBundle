@@ -5,6 +5,8 @@ use Symfony\Component\Process\Process;
 
 /**
  * CronManager provides easy access to the crontable
+ *
+ * @author Novikov Viktor
  */
 class CronManager
 {
