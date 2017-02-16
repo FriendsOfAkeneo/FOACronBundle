@@ -7,57 +7,37 @@
 </div>
 <br/>
 
-<div >
-    <div class="{{ form.minute.vars.errors ? 'error' : ''}}">
+<div class="cron-items">
+    <div class="cron-item {{ form.minute.vars.errors.count ? 'error' : ''}}">
         <label>Minute: </label>
-        {{ form_widget(form.minute, {'attr':{
-                'class': 'time-input form-control ',
-                'data-original-title': 'Minute' | trans ({}, 'BCCCronManagerBundle')
-            }})
-        }}
+        {{ form_widget(form.minute, {'attr':{'class': 'time-input form-control input-mini' }}) }}
         {{ form_errors(form.minute) }}
     </div>
-    <div class="{{ form.hour.vars.errors ? 'error' : ''}}">
-        <label>Hour: </label>
-        {{ form_widget(form.hour, {'attr':{
-                'class': 'time-input form-control ',
-                'data-original-title': 'Hour' | trans ({}, 'BCCCronManagerBundle')
-            }})
-        }}
+    <div class="cron-item {{ form.hour.vars.errors.count ? 'error' : ''}}">
+        <label>Hour:</label>
+        {{ form_widget(form.hour, {'attr':{'class': 'time-input form-control input-mini'}}) }}
         {{ form_errors(form.hour) }}
     </div>
-    <div class="{{ form.dayOfMonth.vars.errors ? 'error' : ''}}">
-        <label>Day of Month: </label>
-        {{ form_widget(form.dayOfMonth, {'attr':{
-                'class': 'time-input form-control ',
-                'data-original-title': 'Day Of Month' | trans ({}, 'BCCCronManagerBundle')
-            }})
-        }}
+    <div class="cron-item {{ form.dayOfMonth.vars.errors.count ? 'error' : ''}}">
+        <label>Day of Month:</label>
+        {{ form_widget(form.dayOfMonth, {'attr':{'class': 'time-input form-control input-mini'}}) }}
         {{ form_errors(form.dayOfMonth) }}
     </div>
-    <div class="{{ form.month.vars.errors ? 'error' : ''}}">
-        <label>Month: </label>
-        {{ form_widget(form.month, {'attr':{
-                'class': 'time-input form-control ',
-                'data-original-title': 'Month' | trans ({}, 'BCCCronManagerBundle')
-            }})
-        }}
+    <div class="cron-item {{ form.month.vars.errors.count ? 'error' : ''}}">
+        <label>Month:</label>
+        {{ form_widget(form.month, {'attr':{'class': 'time-input form-control input-mini'}}) }}
         {{ form_errors(form.month) }}
     </div>
-    <div class="{{ form.dayOfWeek.vars.errors ? 'error' : ''}}">
-        <label>Day of Week: </label>
-        {{ form_widget(form.dayOfWeek, {'attr':{
-                'class': 'time-input form-control ',
-                'data-original-title': 'Day Of Week' | trans ({}, 'BCCCronManagerBundle')
-            }})
-        }}
+    <div class="cron-item {{ form.dayOfWeek.vars.errors.count ? 'error' : ''}}">
+        <label>Day of Week:</label>
+        {{ form_widget(form.dayOfWeek, {'attr':{'class': 'time-input form-control input-mini'}}) }}
         {{ form_errors(form.dayOfWeek) }}
     </div>
 </div>
 
-<div class="{{ form.command.vars.errors ? 'error' : ''}}">
-    <div class="input-group">
-        <span class="input-group-addon">
+<div class="{{ form.command.vars.errors.count ? 'error' : ''}}">
+    <div>
+        <span>
             {{ form_label(form.command, 'Command', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.command, {'attr':{'class': 'form-control'}}) }}
@@ -69,13 +49,13 @@
     </div>
 </div>
 
-<div class="row form-group {{ form.logFile.vars.errors ? 'error' : ''}}">
-    <div class="input-group span">
-        <span class="input-group-addon">
+<div class="{{ form.logFile.vars.errors.count ? 'error' : ''}}">
+    <div>
+        <span>
             {{ form_label(form.logFile, 'Log File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.logFile, {'attr':{'class': 'form-control col-md-10'}}) }}
-        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}/cron.log"
+        <button type="button" class="btn btn-default log-preset" value="{{ logDir }}/cron.log"
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
@@ -83,13 +63,13 @@
     </div>
 </div>
 
-<div class="row form-group {{ form.errorFile.vars.errors ? 'error' : ''}}">
-    <div class="input-group span">
-        <span class="input-group-addon">
+<div class="{{ form.errorFile.vars.errors.count ? 'error' : ''}}">
+    <div>
+        <span>
             {{ form_label(form.errorFile, 'Error File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.errorFile, {'attr':{'class': 'form-control col-md-10'}}) }}
-        <button type="button" class="btn btn-default log-preset pull-right" value="{{ logDir }}/cron-errors.log"
+        <button type="button" class="btn btn-default log-preset" value="{{ logDir }}/cron-errors.log"
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
@@ -97,14 +77,14 @@
     </div>
 </div>
 
-<div class="row form-group {{ form.comment.vars.errors ? 'error' : ''}}">
-    <div class="input-group span">
-        <span class="input-group-addon">
+<div class="{{ form.comment.vars.errors.count ? 'error' : ''}}">
+    <div>
+        <span>
             {{ form_label(form.comment, 'Comment', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.comment, {'attr':{'class': 'form-control col-md-10'}}) }}
+        {{ form_errors(form.comment) }}
     </div>
-    {{ form_errors(form.comment) }}
 </div>
 
 {{ form_rest(form) }}

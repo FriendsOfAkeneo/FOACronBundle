@@ -6,7 +6,7 @@
     margin-top: 10px;
 }
 
-#add-cron .control-group.error label {
+#add-cron .error label {
     color: #B94A48;
 }
 
@@ -23,7 +23,7 @@
     margin-right: 5px;
 }
 
-.modal-header, table td pre {
+table td pre {
     white-space: pre-wrap;
 }
 
@@ -33,4 +33,13 @@
 
 #log-content pre {
     font-size: x-small;
+}
+
+.cron-items {
+    display: flex;
+    width: 700px;
+}
+
+.cron-item {
+    width: 15%;
 }
