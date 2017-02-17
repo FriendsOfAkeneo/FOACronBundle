@@ -98,6 +98,7 @@ class DashboardController extends Controller
         }
 
         return $this->render('FOACronBundle:Dashboard:edit.html.twig', [
+            'id'   => $id,
             'form' => $form->createView(),
         ]);
     }
