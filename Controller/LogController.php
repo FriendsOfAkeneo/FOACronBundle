@@ -22,7 +22,7 @@ class LogController extends Controller
      */
     public function fileAction($id, $type)
     {
-        $cronManager = new CronManager();
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $cron = $cronManager->getById($id);
         $filepath = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
         $content = file_get_contents($filepath);

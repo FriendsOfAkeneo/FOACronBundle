@@ -5,7 +5,7 @@ namespace FOA\CronBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use FOA\CronBundle\Form\Type\CronType;
 use FOA\CronBundle\Manager\Cron;
-use FOA\CronBundle\Manager\CronManager;
+//use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +26,7 @@ class DashboardController extends Controller
      */
     public function indexAction()
     {
-        $cronManager = new CronManager();
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
@@ -48,7 +48,7 @@ class DashboardController extends Controller
      */
     public function addAction(Request $request)
     {
-        $cronManager = new CronManager();
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $cron = new Cron();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
@@ -79,7 +79,7 @@ class DashboardController extends Controller
      */
     public function editAction($id)
     {
-        $cronManager = new CronManager();
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
         $cron = $cronManager->getById($id);
@@ -138,7 +138,7 @@ class DashboardController extends Controller
      */
     protected function suspendTask($id, $state)
     {
-        $cronManager = new CronManager();
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
@@ -159,7 +159,7 @@ class DashboardController extends Controller
      */
     public function removeAction($id)
     {
-        $cronManager = new CronManager();
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
         $cronManager->remove($id);
