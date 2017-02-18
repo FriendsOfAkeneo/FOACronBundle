@@ -2,6 +2,9 @@
 
 namespace FOA\CronBundle\Twig;
 
+/**
+ * @author Novikov Viktor
+ */
 class TwigExtension extends \Twig_Extension
 {
     /**

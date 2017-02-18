@@ -9,6 +9,8 @@ namespace FOA\CronBundle\Manager;
  * - comment
  * - log files
  * - cron execution status
+ *
+ * @author Novikov Viktor
  */
 class Cron
 {

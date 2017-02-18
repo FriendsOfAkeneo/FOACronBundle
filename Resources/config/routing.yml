@@ -25,6 +25,6 @@ foa_cron_remove:
 
 foa_cron_file:
   path: /{id}/file/{type}
-  defaults: { _controller: 'FOACronBundle:Dashboard:file' }
+  defaults: { _controller: 'FOACronBundle:Log:file' }
   requirements:
       type: log|error

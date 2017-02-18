@@ -2,16 +2,6 @@
 
 {% trans_default_domain "messages" %}
 
-{% block head_script_component %}
-    <script type="text/javascript" charset="utf-8">
-        require(
-            ['foacron/system/configuration'],
-            function(cron) {
-            }
-        );
-    </script>
-{% endblock %}
-
 {% block content %}
 
     <div class="navigation clearfix navbar-extra">
@@ -137,7 +127,6 @@
     </section>
 
     <section id="add-cron" class="container-fluid">
-
         <div class="page-header">
             <h4>{{ 'cron.add_a_cron'|trans }}</h4>
         </div>
@@ -147,4 +136,13 @@
             <input type="submit" class="btn btn-success btn-lg" value="{{ 'cron.add'|trans }}"/>
         </form>
     </section>
+
+    <script type="text/javascript" charset="utf-8">
+        require(
+            ['foacron/system/configuration'],
+            function(config) {
+                config();
+            }
+        );
+    </script>
 {% endblock %}

@@ -2,8 +2,6 @@
 
 namespace FOA\CronBundle\Controller;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 use FOA\CronBundle\Form\Type\CronType;
 use FOA\CronBundle\Manager\Cron;
@@ -15,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Display dashboard and manage CRUD operations
+ * @author Novikov Viktor
  */
 class DashboardController extends Controller
 {
@@ -34,7 +33,7 @@ class DashboardController extends Controller
         $form = $this->createForm(new CronType(), new Cron());
 
         return $this->render('FOACronBundle:Dashboard:index.html.twig', [
-            'crons' => $cronManager->get(),
+            'crons' => $cronManager->getCrons(),
             'raw'   => $cronManager->getRaw(),
             'form'  => $form->createView(),
         ]);
@@ -65,7 +64,7 @@ class DashboardController extends Controller
         }
 
         return $this->render('FOACronBundle:Dashboard:index.html.twig', [
-            'crons' => $cronManager->get(),
+            'crons' => $cronManager->getCrons(),
             'raw'   => $cronManager->getRaw(),
             'form'  => $form->createView(),
         ]);
@@ -81,10 +80,10 @@ class DashboardController extends Controller
     public function editAction($id)
     {
         $cronManager = new CronManager();
-        $cronList = $cronManager->get();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
-        $form = $this->createForm(new CronType(), $cronList[$id]);
+        $cron = $cronManager->getById($id);
+        $form = $this->createForm(new CronType(), $cron);
 
         $request = $this->get('request');
         $form->handleRequest($request);
@@ -140,11 +139,10 @@ class DashboardController extends Controller
     protected function suspendTask($id, $state)
     {
         $cronManager = new CronManager();
-        $cronList = $cronManager->get();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        $cron = $cronList[$id];
+        $cron = $cronManager->getById($id);
         $cron->setSuspended($state);
 
         $cronManager->write();
@@ -169,33 +167,6 @@ class DashboardController extends Controller
         $this->addFlash('error', $cronManager->getError());
 
         return $this->redirect($this->generateUrl('foa_cron_index'));
-    }
-
-    /**
-     * Gets a log file
-     *
-     * @param $id   - the line of the cron in the cron table
-     * @param $type - the type of file, log or error
-     *
-     * @return Response
-     */
-    public function fileAction($id, $type)
-    {
-        $cronManager = new CronManager();
-        $cronList = $cronManager->get();
-
-        /**
-         * @var Cron $cron
-         */
-        $cron = $cronList[$id];
-
-        $data = [];
-        $data['file'] = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
-        $data['content'] = file_get_contents($data['file']);
-
-        $serializer = new Serializer([], ['json' => new JsonEncoder()]);
-
-        return new Response($serializer->serialize($data, 'json'));
     }
 
     /**

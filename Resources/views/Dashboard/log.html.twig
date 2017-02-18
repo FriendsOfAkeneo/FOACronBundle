@@ -1,0 +1,22 @@
+{% extends 'PimEnrichBundle::layout.html.twig' %}
+
+{% trans_default_domain "messages" %}
+
+{% block content %}
+    <div class="navigation clearfix navbar-extra">
+        <div class="row-fluid">
+            <div class="navbar-content pull-left">
+                <div class="navbar-title clearfix-oro">
+                    <div class="sub-title">Cron Management</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="navbar-content pull-left">
+            </div>
+        </div>
+    </div>
+
+    <section id="log-content" class="container-fluid">
+        <pre>{{ content }}</pre>
+    </section>
+{% endblock %}
