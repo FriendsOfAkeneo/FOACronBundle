@@ -2,6 +2,7 @@
 
 namespace FOA\CronBundle\Manager;
 
+use FOA\CronBundle\Validator\Constraints as CronAsserts;
 use InvalidArgumentException;
 
 /**
@@ -49,6 +50,8 @@ class Cron
 
     /**
      * @var string
+     *
+     * @CronAsserts\CliCommandPath
      */
     protected $command;
 
