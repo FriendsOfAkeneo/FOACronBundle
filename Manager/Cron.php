@@ -2,6 +2,8 @@
 
 namespace FOA\CronBundle\Manager;
 
+use FOA\CronBundle\Validator\Constraints as CronAsserts;
+
 /**
  * Cron represents a cron command. It holds:
  * - time data
@@ -41,6 +43,8 @@ class Cron
 
     /**
      * @var string
+     *
+     * @CronAsserts\CliCommandPath
      */
     protected $command;
 
