@@ -25,35 +25,105 @@ class CronTest extends TestCase
         $this->assertEquals('5', $cron->getDayOfWeek());
         $this->assertEquals('my_command', $cron->getCommand());
         $this->assertEquals(null, $cron->getLogFile());
-
-        $cron = Cron::parse('1 2 3 4 15 my_command');
-        $this->assertEquals('1', $cron->getMinute());
-        $this->assertEquals('2', $cron->getHour());
-        $this->assertEquals('3', $cron->getDayOfMonth());
-        $this->assertEquals('4', $cron->getMonth());
-        $this->assertEquals('15', $cron->getDayOfWeek());
-        $this->assertEquals('my_command', $cron->getCommand());
-        $this->assertEquals(null, $cron->getLogFile());
     }
 
-    public function testParseInvalidMinute()
+    public function invalidMinutes()
     {
-        $this->expectException(InvalidArgumentException::class);
+        return [
+            ['-1 * * * * my_command'],
+            ['60 * * * * my_command'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidMinutes
+     * @expectedException InvalidArgumentException
+     *
+     * @param string $cronString
+     */
+    public function testParseInvalidMinute($cronString)
+    {
         $this->expectExceptionCode(Cron::ERROR_MINUTE);
-        Cron::parse('80 * * * * my_command');
+        Cron::parse($cronString);
     }
 
-    public function testParseInvalidHour()
+    public function invalidHours()
     {
-        $this->expectException(InvalidArgumentException::class);
+        return [
+            ['* -1 * * * my_command'],
+            ['* 24 * * * my_command'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidHours
+     * @expectedException InvalidArgumentException
+     *
+     * @param string $cronString
+     */
+    public function testParseInvalidHour($cronString)
+    {
         $this->expectExceptionCode(Cron::ERROR_HOUR);
-        Cron::parse('* 35 * * * my_command');
+        Cron::parse($cronString);
     }
 
-    public function testParseInvalidMonth()
+    public function invalidMonthDays()
     {
-        $this->expectException(InvalidArgumentException::class);
+        return [
+            ['* * 0 * * my_command'],
+            ['* * 32 * * my_command'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidMonthDays
+     * @expectedException InvalidArgumentException
+     *
+     * @param string $cronString
+     */
+    public function testParseInvalidDayOfMonth($cronString)
+    {
+        $this->expectExceptionCode(Cron::ERROR_DAY_OF_MONTH);
+        Cron::parse($cronString);
+    }
+
+    public function invalidMonthes()
+    {
+        return [
+            ['* * * 0 * my_command'],
+            ['* * * 13 * my_command'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidMonthes
+     * @expectedException InvalidArgumentException
+     *
+     * @param string $cronString
+     */
+    public function testParseInvalidMonth($cronString)
+    {
         $this->expectExceptionCode(Cron::ERROR_MONTH);
-        Cron::parse('* * * 14 * my_command');
+        Cron::parse($cronString);
+    }
+
+    public function invalidWeekDays()
+    {
+        return [
+            ['* * * * -1 my_command'],
+            ['* * * * 8 my_command'],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidWeekDays
+     * @expectedException InvalidArgumentException
+     *
+     * @param string $cronString
+     */
+    public function testParseInvalidDayOfWeek($cronString)
+    {
+        $this->expectExceptionCode(Cron::ERROR_DAY_OF_WEEK);
+        Cron::parse($cronString);
     }
 }

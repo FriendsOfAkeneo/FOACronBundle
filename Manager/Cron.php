@@ -217,10 +217,11 @@ class Cron
      */
     public function setDayOfMonth($dayOfMonth)
     {
-        if (is_numeric($dayOfMonth) &&
-            $dayOfMonth < 1 || $dayOfMonth > 31
-        ) {
-            throw new InvalidArgumentException('Invalid day of month format', self::ERROR_DAY_OF_MONTH);
+        if (is_numeric($dayOfMonth) && ($dayOfMonth < 1 || $dayOfMonth > 31)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid day of month "%d"', $dayOfMonth),
+                self::ERROR_DAY_OF_MONTH
+            );
         }
 
         $this->dayOfMonth = $dayOfMonth;
@@ -244,10 +245,11 @@ class Cron
      */
     public function setDayOfWeek($dayOfWeek)
     {
-        if (is_numeric($dayOfWeek) &&
-            $dayOfWeek < 0 || $dayOfWeek > 7
-        ) {
-            throw new InvalidArgumentException('Invalid day of week format', self::ERROR_DAY_OF_WEEK);
+        if (is_numeric($dayOfWeek) && ($dayOfWeek < 0 || $dayOfWeek > 7)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid day of week "%d"', $dayOfWeek),
+                self::ERROR_DAY_OF_WEEK
+            );
         }
 
         $this->dayOfWeek = $dayOfWeek;
@@ -271,10 +273,11 @@ class Cron
      */
     public function setHour($hour)
     {
-        if (is_numeric($hour) &&
-            $hour < 0 || $hour > 23
-        ) {
-            throw new InvalidArgumentException('Invalid hour format', self::ERROR_HOUR);
+        if (is_numeric($hour) && ($hour < 0 || $hour > 23)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid hour "%d"', $hour),
+                self::ERROR_HOUR
+            );
         }
 
         $this->hour = $hour;
@@ -298,10 +301,11 @@ class Cron
      */
     public function setMinute($minute)
     {
-        if (is_numeric($minute) &&
-            $minute < 0 || $minute > 59
-        ) {
-            throw new InvalidArgumentException('Invalid minute format', self::ERROR_MINUTE);
+        if (is_numeric($minute) && ($minute < 0 || $minute > 59)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid minute "%d"', $minute),
+                self::ERROR_MINUTE
+            );
         }
 
         $this->minute = $minute;
@@ -325,10 +329,11 @@ class Cron
      */
     public function setMonth($month)
     {
-        if (is_numeric($month) &&
-            $month < 1 || $month > 12
-        ) {
-            throw new InvalidArgumentException('Invalid month format', self::ERROR_MONTH);
+        if (is_numeric($month) && ($month < 1 || $month > 12)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid month "%d"', $month),
+                self::ERROR_MONTH
+            );
         }
 
         $this->month = $month;
