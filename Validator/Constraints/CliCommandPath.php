@@ -10,4 +10,12 @@ use Symfony\Component\Validator\Constraint;
 class CliCommandPath extends Constraint
 {
     public $message = 'The path "%string%" is not valid Symfony command path.';
+
+    /**
+     * @inheritdoc
+     */
+    public function validatedBy()
+    {
+        return 'foa.cli_command_path.validator';
+    }
 }
