@@ -2,6 +2,8 @@
 
 namespace FOA\CronBundle\Manager;
 
+use InvalidArgumentException;
+
 /**
  * Cron represents a cron command. It holds:
  * - time data
@@ -14,6 +16,12 @@ namespace FOA\CronBundle\Manager;
  */
 class Cron
 {
+    const ERROR_MINUTE = 1;
+    const ERROR_HOUR = 2;
+    const ERROR_DAY_OF_MONTH = 3;
+    const ERROR_MONTH = 4;
+    const ERROR_DAY_OF_WEEK = 5;
+
     /**
      * @var string
      */
@@ -99,7 +107,9 @@ class Cron
      * Parses a cron line into a Cron instance
      *
      * @static
+     *
      * @param $cron string The cron line
+     *
      * @return Cron
      */
     public static function parse($cron)
@@ -140,7 +150,7 @@ class Cron
             $logSize = filesize($logFile);
         }
         if (isset($errorFile) && file_exists($errorFile)) {
-            $lastRunTime = max($lastRunTime ? : 0, filemtime($errorFile));
+            $lastRunTime = max($lastRunTime ?: 0, filemtime($errorFile));
             $errorSize = filesize($errorFile);
         }
 
@@ -183,6 +193,7 @@ class Cron
 
     /**
      * @param string $command
+     *
      * @return $this
      */
     public function setCommand($command)
@@ -202,10 +213,19 @@ class Cron
 
     /**
      * @param string $dayOfMonth
+     *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setDayOfMonth($dayOfMonth)
     {
+        if (is_numeric($dayOfMonth) && ($dayOfMonth < 1 || $dayOfMonth > 31)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid day of month "%d"', $dayOfMonth),
+                self::ERROR_DAY_OF_MONTH
+            );
+        }
+
         $this->dayOfMonth = $dayOfMonth;
 
         return $this;
@@ -221,11 +241,19 @@ class Cron
 
     /**
      * @param string $dayOfWeek
-     * @param $dayOfWeek
+     *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setDayOfWeek($dayOfWeek)
     {
+        if (is_numeric($dayOfWeek) && ($dayOfWeek < 0 || $dayOfWeek > 7)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid day of week "%d"', $dayOfWeek),
+                self::ERROR_DAY_OF_WEEK
+            );
+        }
+
         $this->dayOfWeek = $dayOfWeek;
 
         return $this;
@@ -241,11 +269,19 @@ class Cron
 
     /**
      * @param string $hour
-     * @param $hour
+     *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setHour($hour)
     {
+        if (is_numeric($hour) && ($hour < 0 || $hour > 23)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid hour "%d"', $hour),
+                self::ERROR_HOUR
+            );
+        }
+
         $this->hour = $hour;
 
         return $this;
@@ -261,10 +297,19 @@ class Cron
 
     /**
      * @param string $minute
+     *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setMinute($minute)
     {
+        if (is_numeric($minute) && ($minute < 0 || $minute > 59)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid minute "%d"', $minute),
+                self::ERROR_MINUTE
+            );
+        }
+
         $this->minute = $minute;
 
         return $this;
@@ -280,10 +325,19 @@ class Cron
 
     /**
      * @param string $month
+     *
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setMonth($month)
     {
+        if (is_numeric($month) && ($month < 1 || $month > 12)) {
+            throw new InvalidArgumentException(
+                sprintf('Invalid month "%d"', $month),
+                self::ERROR_MONTH
+            );
+        }
+
         $this->month = $month;
 
         return $this;
@@ -299,6 +353,7 @@ class Cron
 
     /**
      * @param string $comment
+     *
      * @return $this
      */
     public function setComment($comment)
@@ -318,6 +373,7 @@ class Cron
 
     /**
      * @param string $logFile
+     *
      * @return $this
      */
     public function setLogFile($logFile)
@@ -337,6 +393,7 @@ class Cron
 
     /**
      * @param string $errorFile
+     *
      * @return $this
      */
     public function setErrorFile($errorFile)
@@ -356,6 +413,7 @@ class Cron
 
     /**
      * @param int $lastRunTime
+     *
      * @return $this
      */
     public function setLastRunTime($lastRunTime)
@@ -375,6 +433,7 @@ class Cron
 
     /**
      * @param string $errorSize
+     *
      * @return $this
      */
     public function setErrorSize($errorSize)
@@ -394,6 +453,7 @@ class Cron
 
     /**
      * @param string $logSize
+     *
      * @return $this
      */
     public function setLogSize($logSize)
@@ -413,6 +473,7 @@ class Cron
 
     /**
      * @param string $status
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -488,6 +549,7 @@ class Cron
         if ('' != $this->comment) {
             $cronLine .= ' #' . $this->comment;
         }
+
         return $cronLine;
     }
 }

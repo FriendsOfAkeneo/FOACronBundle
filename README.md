@@ -1,4 +1,5 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/FriendsOfAkeneo/FOACronBundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/FriendsOfAkeneo/FOACronBundle/?branch=develop)
+[![Build Status](https://travis-ci.org/FriendsOfAkeneo/FOACronBundle.svg?branch=master)](https://travis-ci.org/FriendsOfAkeneo/FOACronBundle)
 
 FOACronBundle - easy cron management from Akeneo dashboard
 =======================================
