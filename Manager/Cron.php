@@ -99,10 +99,7 @@ class Cron
     protected $comment;
 
     /**
-     * isSuspended
-     *
      * @var boolean
-     * @access protected
      */
     protected $isSuspended = false;
 
@@ -111,7 +108,7 @@ class Cron
      *
      * @static
      *
-     * @param $cron string The cron line
+     * @param string $cron The cron line
      *
      * @return Cron
      */

@@ -5,7 +5,6 @@ namespace FOA\CronBundle\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use FOA\CronBundle\Form\Type\CronType;
 use FOA\CronBundle\Manager\Cron;
-//use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Symfony\Component\HttpFoundation\Request;

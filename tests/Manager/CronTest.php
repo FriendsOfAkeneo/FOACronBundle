@@ -6,6 +6,9 @@ use FOA\CronBundle\Manager\Cron;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @author JM Leroux <jmleroux.pro@gmail.com>
+ */
 class CronTest extends TestCase
 {
     public function testAdd()
@@ -27,6 +30,9 @@ class CronTest extends TestCase
         $this->assertEquals(null, $cron->getLogFile());
     }
 
+    /**
+     * @return array
+     */
     public function invalidMinutes()
     {
         return [

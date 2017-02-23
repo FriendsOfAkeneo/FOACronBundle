@@ -6,6 +6,7 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
+ * @author Novikov Viktor
  */
 class CliCommandPath extends Constraint
 {

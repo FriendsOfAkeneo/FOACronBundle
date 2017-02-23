@@ -13,7 +13,7 @@ class CronManager
     /**
      * The lines of the cron table, can be cron command or comment
      *
-     * @var array
+     * @var string[]|Cron[]
      */
     protected $lines = [];
 
@@ -41,7 +41,7 @@ class CronManager
         });
 
         foreach ($lines as $lineNumber => $line) {
-            // if line is nt a comment, convert it to a cron
+            // if line is not a comment, convert it to a cron
             if (strpos($line, '#suspended: ', 0) === 0 || 0 !== strpos($line, '#', 0)) {
                 try {
                     $line = Cron::parse($line);
@@ -92,7 +92,6 @@ class CronManager
     public function add(Cron $cron)
     {
         $this->lines[] = $cron;
-
         $this->write();
     }
 
@@ -104,7 +103,6 @@ class CronManager
     public function remove($index)
     {
         $this->lines = array_diff_key($this->lines, [$index => '']);
-
         $this->write();
     }
 

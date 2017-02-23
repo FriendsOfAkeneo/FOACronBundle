@@ -3,7 +3,6 @@
 namespace FOA\CronBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use FOA\CronBundle\Manager\CronManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
