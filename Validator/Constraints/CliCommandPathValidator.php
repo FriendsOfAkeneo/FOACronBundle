@@ -22,7 +22,7 @@ class CliCommandPathValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        $pattern = '/^php\s' . str_replace('/', '\/', $this->kernelDir . '/console') . '\s*/';
+        $pattern = sprintf('#^php \s+ %s/console \s+#x', preg_quote($this->kernelDir));
         if (!preg_match($pattern, $value, $matches)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%string%', $value)
