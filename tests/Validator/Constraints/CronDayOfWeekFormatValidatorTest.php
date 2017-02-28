@@ -2,27 +2,44 @@
 
 namespace Tests\FOA\CronBundle\Validator\Constraints;
 
-use FOA\CronBundle\Validator\Constraints\CliCommandPath;
-use FOA\CronBundle\Validator\Constraints\CliCommandPathValidator;
+use FOA\CronBundle\Validator\Constraints\CronDayOfWeekFormat;
+use FOA\CronBundle\Validator\Constraints\CronDayOfWeekFormatValidator;
 use Symfony\Component\Validator\Tests\Constraints\AbstractConstraintValidatorTest;
 
 /**
  * @author JM Leroux <jmleroux.pro@gmail.com>
  */
-class CliCommandPathValidatorTest extends AbstractConstraintValidatorTest
+class CronDayOfWeekFormatValidatorTest extends AbstractConstraintValidatorTest
 {
     /**
      * {@inheritdoc}
      */
     protected function createValidator()
     {
-        return new CliCommandPathValidator('/home/akeneo/pim/app');
+        return new CronDayOfWeekFormatValidator();
     }
 
-    public function testValidCommand()
+    /**
+     * @return array
+     */
+    public function getValidValues()
     {
-        $constraint = new CliCommandPath();
-        $this->validator->validate('php /home/akeneo/pim/app/console debug:container', $constraint);
+        return [
+            [0],
+            [1],
+            [7],
+        ];
+    }
+
+    /**
+     * @dataProvider getValidValues
+     *
+     * @param string $value
+     */
+    public function testValidValue($value)
+    {
+        $constraint = new CronDayOfWeekFormat();
+        $this->validator->validate($value, $constraint);
         $this->assertNoViolation();
     }
 
@@ -32,11 +49,8 @@ class CliCommandPathValidatorTest extends AbstractConstraintValidatorTest
     public function getInvalidValues()
     {
         return [
-            ['php /home/akeneo/pim/app/hack.php'],
-            ['php /usr/bin/console'],
-            ['/home/akeneo/pim/app/console'],
-            ['php /home/akeneo/pim/app/console_hacked'],
-            ['app/console'],
+            [-1],
+            [8],
         ];
     }
 
@@ -47,10 +61,8 @@ class CliCommandPathValidatorTest extends AbstractConstraintValidatorTest
      */
     public function testInvalidValues($value)
     {
-        $constraint = new CliCommandPath();
-
+        $constraint = new CronDayOfWeekFormat();
         $this->validator->validate($value, $constraint);
-
         $this->buildViolation($constraint->message)
             ->setParameter('%string%', $value)
             ->assertRaised();
