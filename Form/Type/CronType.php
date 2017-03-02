@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Cron job form type
+ *
+ * @author Novikov Viktor
  */
 class CronType extends AbstractType
 {

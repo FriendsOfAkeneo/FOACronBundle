@@ -7,14 +7,6 @@
 </div>
 <br/>
 
-<div class="row">
-    {{ form_errors(form.minute) }}
-    {{ form_errors(form.hour) }}
-    {{ form_errors(form.dayOfMonth) }}
-    {{ form_errors(form.month) }}
-    {{ form_errors(form.dayOfWeek) }}
-</div>
-
 <div >
     <div class="{{ form.minute.vars.errors ? 'error' : ''}}">
         <label>Minute: </label>
@@ -23,6 +15,7 @@
                 'data-original-title': 'Minute' | trans ({}, 'BCCCronManagerBundle')
             }})
         }}
+        {{ form_errors(form.minute) }}
     </div>
     <div class="{{ form.hour.vars.errors ? 'error' : ''}}">
         <label>Hour: </label>
@@ -31,6 +24,7 @@
                 'data-original-title': 'Hour' | trans ({}, 'BCCCronManagerBundle')
             }})
         }}
+        {{ form_errors(form.hour) }}
     </div>
     <div class="{{ form.dayOfMonth.vars.errors ? 'error' : ''}}">
         <label>Day of Month: </label>
@@ -39,6 +33,7 @@
                 'data-original-title': 'Day Of Month' | trans ({}, 'BCCCronManagerBundle')
             }})
         }}
+        {{ form_errors(form.dayOfMonth) }}
     </div>
     <div class="{{ form.month.vars.errors ? 'error' : ''}}">
         <label>Month: </label>
@@ -47,6 +42,7 @@
                 'data-original-title': 'Month' | trans ({}, 'BCCCronManagerBundle')
             }})
         }}
+        {{ form_errors(form.month) }}
     </div>
     <div class="{{ form.dayOfWeek.vars.errors ? 'error' : ''}}">
         <label>Day of Week: </label>
@@ -55,11 +51,11 @@
                 'data-original-title': 'Day Of Week' | trans ({}, 'BCCCronManagerBundle')
             }})
         }}
+        {{ form_errors(form.dayOfWeek) }}
     </div>
 </div>
 
 <div class="{{ form.command.vars.errors ? 'error' : ''}}">
-    {{ form_errors(form.command) }}
     <div class="input-group">
         <span class="input-group-addon">
             {{ form_label(form.command, 'Command', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
@@ -69,11 +65,11 @@
                 data-original-title="{{ 'Command sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
+        {{ form_errors(form.command) }}
     </div>
 </div>
 
 <div class="row form-group {{ form.logFile.vars.errors ? 'error' : ''}}">
-    {{ form_errors(form.logFile) }}
     <div class="input-group span">
         <span class="input-group-addon">
             {{ form_label(form.logFile, 'Log File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
@@ -83,11 +79,11 @@
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
+        {{ form_errors(form.logFile) }}
     </div>
 </div>
 
 <div class="row form-group {{ form.errorFile.vars.errors ? 'error' : ''}}">
-    {{ form_errors(form.errorFile) }}
     <div class="input-group span">
         <span class="input-group-addon">
             {{ form_label(form.errorFile, 'Error File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
@@ -97,17 +93,18 @@
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
+        {{ form_errors(form.errorFile) }}
     </div>
 </div>
 
 <div class="row form-group {{ form.comment.vars.errors ? 'error' : ''}}">
-    {{ form_errors(form.comment) }}
     <div class="input-group span">
         <span class="input-group-addon">
             {{ form_label(form.comment, 'Comment', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
         </span>
         {{- form_widget(form.comment, {'attr':{'class': 'form-control col-md-10'}}) }}
     </div>
+    {{ form_errors(form.comment) }}
 </div>
 
 {{ form_rest(form) }}

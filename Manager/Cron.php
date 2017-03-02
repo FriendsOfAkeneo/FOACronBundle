@@ -2,7 +2,7 @@
 
 namespace FOA\CronBundle\Manager;
 
-use InvalidArgumentException;
+use FOA\CronBundle\Validator\Constraints as CronAsserts;
 
 /**
  * Cron represents a cron command. It holds:
@@ -16,39 +16,39 @@ use InvalidArgumentException;
  */
 class Cron
 {
-    const ERROR_MINUTE = 1;
-    const ERROR_HOUR = 2;
-    const ERROR_DAY_OF_MONTH = 3;
-    const ERROR_MONTH = 4;
-    const ERROR_DAY_OF_WEEK = 5;
-
     /**
      * @var string
+     * @CronAsserts\CronMinuteFormat
      */
     protected $minute = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronHourFormat()
      */
     protected $hour = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronDayOfMonthFormat
      */
     protected $dayOfMonth = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronMonthFormat
      */
     protected $month = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronDayOfWeekFormat
      */
     protected $dayOfWeek = '*';
 
     /**
      * @var string
+     * @CronAsserts\CliCommandPath
      */
     protected $command;
 
@@ -96,10 +96,7 @@ class Cron
     protected $comment;
 
     /**
-     * isSuspended
-     *
      * @var boolean
-     * @access protected
      */
     protected $isSuspended = false;
 
@@ -108,7 +105,7 @@ class Cron
      *
      * @static
      *
-     * @param $cron string The cron line
+     * @param string $cron The cron line
      *
      * @return Cron
      */
@@ -215,17 +212,9 @@ class Cron
      * @param string $dayOfMonth
      *
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function setDayOfMonth($dayOfMonth)
     {
-        if (is_numeric($dayOfMonth) && ($dayOfMonth < 1 || $dayOfMonth > 31)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid day of month "%d"', $dayOfMonth),
-                self::ERROR_DAY_OF_MONTH
-            );
-        }
-
         $this->dayOfMonth = $dayOfMonth;
 
         return $this;
@@ -243,17 +232,9 @@ class Cron
      * @param string $dayOfWeek
      *
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function setDayOfWeek($dayOfWeek)
     {
-        if (is_numeric($dayOfWeek) && ($dayOfWeek < 0 || $dayOfWeek > 7)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid day of week "%d"', $dayOfWeek),
-                self::ERROR_DAY_OF_WEEK
-            );
-        }
-
         $this->dayOfWeek = $dayOfWeek;
 
         return $this;
@@ -271,17 +252,9 @@ class Cron
      * @param string $hour
      *
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function setHour($hour)
     {
-        if (is_numeric($hour) && ($hour < 0 || $hour > 23)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid hour "%d"', $hour),
-                self::ERROR_HOUR
-            );
-        }
-
         $this->hour = $hour;
 
         return $this;
@@ -299,17 +272,9 @@ class Cron
      * @param string $minute
      *
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function setMinute($minute)
     {
-        if (is_numeric($minute) && ($minute < 0 || $minute > 59)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid minute "%d"', $minute),
-                self::ERROR_MINUTE
-            );
-        }
-
         $this->minute = $minute;
 
         return $this;
@@ -327,17 +292,9 @@ class Cron
      * @param string $month
      *
      * @return $this
-     * @throws InvalidArgumentException
      */
     public function setMonth($month)
     {
-        if (is_numeric($month) && ($month < 1 || $month > 12)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid month "%d"', $month),
-                self::ERROR_MONTH
-            );
-        }
-
         $this->month = $month;
 
         return $this;
