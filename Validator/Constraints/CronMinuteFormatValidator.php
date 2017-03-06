@@ -96,7 +96,7 @@ class CronMinuteFormatValidator extends ConstraintValidator
             return false;
         }
 
-        if (!is_numeric($minuteItem) && !preg_match('#^\*/[0-9]+$#', $minuteItem)) {
+        if (!is_numeric($minuteItem) && !preg_match('#(^\*$)|(^\*/[0-9]+$)#', $minuteItem)) {
             return false;
         }
 

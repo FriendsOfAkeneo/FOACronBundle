@@ -33,6 +33,8 @@ class CronMinuteFormatValidatorTest extends AbstractConstraintValidatorTest
             ['10-20,40-50'],
             ['5,15-20,30'],
             ['*/15'],
+            ['*'],
+            ['*,3,*/5'],
         ];
     }
 
@@ -64,6 +66,7 @@ class CronMinuteFormatValidatorTest extends AbstractConstraintValidatorTest
             ['10-20,85'],
             ['10-20,50-65'],
             ['20/*'],
+            ['**'],
         ];
     }
 
