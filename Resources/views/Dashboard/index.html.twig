@@ -27,13 +27,14 @@
         {% for index, cron in crons %}
             <div class="row">
                 <div class="span2">
-                    <span class="label label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{% else %}success{% endif %}">
+                    <span class="label
+                    label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{% else %}success{% endif %}">
                         {{ cron.status | trans({}, 'BCCCronManagerBundle') | capitalize }}
                     </span>
                 </div>
-                <h3 class="span{% if cron.suspended %} text-muted{% endif %}">
+                <h4 class="span{% if cron.suspended %} text-muted{% endif %}">
                     {{ cron.expression }} {{ cron.command }}
-                </h3>
+                </h4>
                 <button class="btn btn-default pull-right" data-toggle="collapse" data-target="#cron-{{ index }}"><i
                             class="icon-search"></i>{{ 'cron.details'|trans }}</button>
             </div>
