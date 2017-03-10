@@ -18,7 +18,6 @@ class LogFileValidator extends ConstraintValidator
      */
     public function __construct($appDir)
     {
-
         $this->appDir = $appDir;
     }
 
