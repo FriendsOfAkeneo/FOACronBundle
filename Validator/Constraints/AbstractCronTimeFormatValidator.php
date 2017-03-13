@@ -86,5 +86,5 @@ abstract class AbstractCronTimeFormatValidator extends ConstraintValidator
      *
      * @return bool
      */
-    abstract function validateTimeEntry($item);
+    abstract protected function validateTimeEntry($item);
 }

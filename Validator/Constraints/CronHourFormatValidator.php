@@ -10,7 +10,7 @@ class CronHourFormatValidator extends AbstractCronTimeFormatValidator
     /**
      * @inheritdoc
      */
-    public function validateTimeEntry($item)
+    protected function validateTimeEntry($item)
     {
         if ('' === trim($item)) {
             return false;
