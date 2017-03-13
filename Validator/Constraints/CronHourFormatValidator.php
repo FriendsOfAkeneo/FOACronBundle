@@ -2,9 +2,6 @@
 
 namespace FOA\CronBundle\Validator\Constraints;
 
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
-
 /**
  * @author JM Leroux <jmleroux.pro@gmail.com>
  */
