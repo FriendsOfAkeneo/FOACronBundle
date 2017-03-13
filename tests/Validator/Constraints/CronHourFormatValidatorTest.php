@@ -28,6 +28,13 @@ class CronHourFormatValidatorTest extends AbstractConstraintValidatorTest
             [0],
             [1],
             [23],
+            ['5,15'],
+            ['5-15'],
+            ['11-15,16-20'],
+            ['5,15-20,23'],
+            ['*/15'],
+            ['*'],
+            ['*,7,*/15'],
         ];
     }
 
@@ -51,6 +58,17 @@ class CronHourFormatValidatorTest extends AbstractConstraintValidatorTest
         return [
             [-1],
             [24],
+            ['5,30'],
+            ['32,9'],
+            ['24-50'],
+            ['-1'],
+            ['1-'],
+            ['22,23-70'],
+            ['10-20,45'],
+            ['10-20,50-65'],
+            ['20/*'],
+            ['2-3,20/*'],
+            ['**'],
         ];
     }
 
