@@ -27,6 +27,13 @@ class CronDayOfMonthFormatValidatorTest extends AbstractConstraintValidatorTest
         return [
             [1],
             [31],
+            ['2,15'],
+            ['4-15'],
+            ['1-9,15-25'],
+            ['5,15-30'],
+            ['*/10'],
+            ['*'],
+            ['*,7,*/10'],
         ];
     }
 
@@ -51,6 +58,15 @@ class CronDayOfMonthFormatValidatorTest extends AbstractConstraintValidatorTest
             [-1],
             [0],
             [32],
+            ['5,35'],
+            ['3-35'],
+            ['-1'],
+            ['1-'],
+            ['3,20-35'],
+            ['1-10,20-45'],
+            ['25/*'],
+            ['2-10,25/*'],
+            ['**'],
         ];
     }
 
