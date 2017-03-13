@@ -54,6 +54,7 @@ class Cron
 
     /**
      * @var string
+     * @CronAsserts\LogFile()
      */
     protected $logFile = null;
 
@@ -66,6 +67,7 @@ class Cron
 
     /**
      * @var string
+     * @CronAsserts\LogFile()
      */
     protected $errorFile = null;
 

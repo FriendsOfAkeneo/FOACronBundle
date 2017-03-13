@@ -24,7 +24,9 @@ class LogController extends Controller
         $cronManager = $this->get('foa.cron_bundle.cron_manager');
         $cron = $cronManager->getById($id);
         $filepath = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
-        $content = file_get_contents($filepath);
+        // TODO: re-activate when secure
+        // $content = file_get_contents($filepath);
+        $content = 'File content not displayable.';
 
         return $this->render('FOACronBundle:Dashboard:log.html.twig', [
             'filepath' => $filepath,
