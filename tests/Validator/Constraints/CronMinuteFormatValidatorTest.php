@@ -28,6 +28,13 @@ class CronMinuteFormatValidatorTest extends AbstractConstraintValidatorTest
             [5],
             [0],
             [59],
+            ['5,15'],
+            ['5-15'],
+            ['10-20,40-50'],
+            ['5,15-20,30'],
+            ['*/15'],
+            ['*'],
+            ['*,3,*/5'],
         ];
     }
 
@@ -49,8 +56,17 @@ class CronMinuteFormatValidatorTest extends AbstractConstraintValidatorTest
     public function getInvalidValues()
     {
         return [
-            [-1],
             [61],
+            ['5,89'],
+            ['95,9'],
+            ['50-70'],
+            ['-1'],
+            ['1-'],
+            ['25,50-70'],
+            ['10-20,85'],
+            ['10-20,50-65'],
+            ['20/*'],
+            ['**'],
         ];
     }
 

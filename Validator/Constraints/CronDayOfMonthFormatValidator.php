@@ -2,24 +2,28 @@
 
 namespace FOA\CronBundle\Validator\Constraints;
 
-use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ConstraintValidator;
-
 /**
  * @author JM Leroux <jmleroux.pro@gmail.com>
  */
-class CronDayOfMonthFormatValidator extends ConstraintValidator
+class CronDayOfMonthFormatValidator extends AbstractCronTimeFormatValidator
 {
     /**
-     * @param string|int $value
-     * @param Constraint $constraint
+     * @inheritdoc
      */
-    public function validate($value, Constraint $constraint)
+    protected function validateTimeEntry($item)
     {
-        if (is_numeric($value) && ($value < 1 || $value > 31)) {
-            $this->context->buildViolation($constraint->message)
-                ->setParameter('%string%', $value)
-                ->addViolation();
+        if ('' === trim($item)) {
+            return false;
         }
+
+        if (is_numeric($item) && ($item < 1 || $item > 31)) {
+            return false;
+        }
+
+        if (!is_numeric($item) && !preg_match('#(^\*$)|(^\*/[0-9]+$)#', $item)) {
+            return false;
+        }
+
+        return true;
     }
 }

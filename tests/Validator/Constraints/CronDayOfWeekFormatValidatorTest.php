@@ -28,6 +28,13 @@ class CronDayOfWeekFormatValidatorTest extends AbstractConstraintValidatorTest
             [0],
             [1],
             [7],
+            ['2,4'],
+            ['0-5'],
+            ['1-2,4-6'],
+            ['1,3-5'],
+            ['*/3'],
+            ['*'],
+            ['*,2,*/5'],
         ];
     }
 
@@ -51,6 +58,15 @@ class CronDayOfWeekFormatValidatorTest extends AbstractConstraintValidatorTest
         return [
             [-1],
             [8],
+            ['5,9'],
+            ['3-10'],
+            ['-1'],
+            ['1-'],
+            ['3,4-10'],
+            ['1-3,5-10'],
+            ['5/*'],
+            ['2-3,5/*'],
+            ['**'],
         ];
     }
 
