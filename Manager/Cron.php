@@ -24,7 +24,7 @@ class Cron
 
     /**
      * @var string
-     * @CronAsserts\CronHourFormat()
+     * @CronAsserts\CronHourFormat
      */
     protected $hour = '*';
 
