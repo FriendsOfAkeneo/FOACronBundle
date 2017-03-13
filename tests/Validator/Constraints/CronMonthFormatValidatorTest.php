@@ -28,6 +28,13 @@ class CronMonthFormatValidatorTest extends AbstractConstraintValidatorTest
             [5],
             [1],
             [12],
+            ['5,11'],
+            ['3-10'],
+            ['1-5,6-10'],
+            ['5,6-9,11'],
+            ['*/15'],
+            ['*'],
+            ['*,7,*/15'],
         ];
     }
 
@@ -52,6 +59,17 @@ class CronMonthFormatValidatorTest extends AbstractConstraintValidatorTest
             [-1],
             [0],
             [13],
+            ['5,15'],
+            ['17,9'],
+            ['4-15'],
+            ['-1'],
+            ['1-'],
+            ['3,4-14'],
+            ['2-10,15'],
+            ['1-5,6-15'],
+            ['5/*'],
+            ['2-3,5/*'],
+            ['**'],
         ];
     }
 
