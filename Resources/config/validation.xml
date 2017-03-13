@@ -4,12 +4,6 @@
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="FOA\CronBundle\Manager\Cron">
-        <property name="minute">
-            <constraint name="NotBlank"/>
-            <constraint name="Regex">
-                <option name="pattern">/[0-9\*,\/]+/</option>
-            </constraint>
-        </property>
         <property name="hour">
             <constraint name="NotBlank"/>
             <constraint name="Regex">
