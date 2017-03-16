@@ -1,6 +1,16 @@
-{% extends 'FOACronBundle::layout.html.twig' %}
+{% extends 'PimEnrichBundle::layout.html.twig' %}
 
 {% trans_default_domain "messages" %}
+
+{% block head_script_component %}
+    <script type="text/javascript" charset="utf-8">
+        require(
+            ['foacron/system/configuration'],
+            function(cron) {
+            }
+        );
+    </script>
+{% endblock %}
 
 {% block content %}
     <div class="navigation clearfix navbar-extra">
@@ -16,10 +26,9 @@
         </div>
     </div>
     <section id="edit-cron" class="container-fluid">
-        <form method="post" action="{{ path('defaul_value.cron.default.edit', {'id':index}) }}">
+        <form method="post" action="{{ path('foa_cron_edit', {'id': id}) }}">
             {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
             <input type="submit" class="btn btn-success btn-lg" value="{{ 'cron.edit'|trans }}"/>
         </form>
-
     </section>
 {% endblock %}

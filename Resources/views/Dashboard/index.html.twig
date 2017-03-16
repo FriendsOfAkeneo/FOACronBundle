@@ -1,4 +1,4 @@
-{% extends 'FOACronBundle::layout.html.twig' %}
+{% extends 'PimEnrichBundle::layout.html.twig' %}
 
 {% trans_default_domain "messages" %}
 
@@ -16,22 +16,25 @@
             </div>
         </div>
     </div>
+
     <section id="existing-crons" class="container-fluid">
         <div class="page-header">
             <h4>
                 {{ 'cron.list'|trans }}
             </h4>
         </div>
+
         {% for index, cron in crons %}
             <div class="row">
                 <div class="span2">
-                    <span class="label label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{% else %}success{% endif %}">
+                    <span class="label
+                    label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{% else %}success{% endif %}">
                         {{ cron.status | trans({}, 'BCCCronManagerBundle') | capitalize }}
                     </span>
                 </div>
-                <h3 class="span{% if cron.suspended %} text-muted{% endif %}">
+                <h4 class="span{% if cron.suspended %} text-muted{% endif %}">
                     {{ cron.expression }} {{ cron.command }}
-                </h3>
+                </h4>
                 <button class="btn btn-default pull-right" data-toggle="collapse" data-target="#cron-{{ index }}"><i
                             class="icon-search"></i>{{ 'cron.details'|trans }}</button>
             </div>
@@ -93,7 +96,7 @@
                         <td colspan="2">
                             <span class="pull-right">
                                 <a class="btn btn-default btn-primary"
-                                   href="{{ path('defaul_value.cron.default.edit', {'id':index}) }}">
+                                   href="{{ path('foa_cron_edit', {'id':index}) }}">
                                     <i class="glyphicon glyphicon-edit glyphicon-white"></i>
                                     {{ 'cron.edit'|trans }}
                                 </a>
@@ -123,14 +126,24 @@
             {{ not loop.last ? '<hr/>' : '' }}
         {% endfor %}
     </section>
+
     <section id="add-cron" class="container-fluid">
         <div class="page-header">
             <h4>{{ 'cron.add_a_cron'|trans }}</h4>
         </div>
+
         <form method="post" action="{{ path('foa_cron_add') }}">
             {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
-            <input type="submit" class="btn btn-success btn-lg"
-                   value="{{ 'cron.add'|trans }}"/>
+            <input type="submit" class="btn btn-success btn-lg" value="{{ 'cron.add'|trans }}"/>
         </form>
     </section>
+
+    <script type="text/javascript" charset="utf-8">
+        require(
+            ['foacron/system/configuration'],
+            function(config) {
+                config();
+            }
+        );
+    </script>
 {% endblock %}

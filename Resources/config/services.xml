@@ -5,11 +5,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="bcc_cron_manager.twig.extension" class="FOA\CronBundle\Twig\TwigExtension" public="false">
+
+        <service id="foa.cron_bundle.twig.extension" class="FOA\CronBundle\Twig\TwigExtension" public="false">
             <tag name="twig.extension"/>
             <argument>%kernel.logs_dir%</argument>
             <argument>%kernel.root_dir%</argument>
         </service>
+
+        <service id="foa.cron_bundle.cron_manager" class="FOA\CronBundle\Manager\CronManager"/>
+
+        <service id="foa.cli_command_path.validator" class="FOA\CronBundle\Validator\Constraints\CliCommandPathValidator">
+            <argument>%kernel.root_dir%</argument>
+            <tag name="validator.constraint_validator" alias="foa.cli_command_path.validator" />
+        </service>
+
     </services>
 
 </container>

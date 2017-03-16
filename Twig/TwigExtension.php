@@ -2,6 +2,9 @@
 
 namespace FOA\CronBundle\Twig;
 
+/**
+ * @author Novikov Viktor
+ */
 class TwigExtension extends \Twig_Extension
 {
     /**
@@ -19,6 +22,10 @@ class TwigExtension extends \Twig_Extension
      */
     protected $symfonyCommand;
 
+    /**
+     * @param string $logDir
+     * @param string $kernelDir
+     */
     public function __construct($logDir, $kernelDir)
     {
         if (function_exists('posix_getpwuid')) {
@@ -33,6 +40,9 @@ class TwigExtension extends \Twig_Extension
         $this->symfonyCommand = 'php ' . $kernelDir . '/console';
     }
 
+    /**
+     * @return string[]
+     */
     public function getGlobals()
     {
         return [
@@ -42,6 +52,9 @@ class TwigExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'bcc-cron-manager';

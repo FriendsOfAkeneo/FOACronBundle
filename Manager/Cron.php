@@ -2,6 +2,8 @@
 
 namespace FOA\CronBundle\Manager;
 
+use FOA\CronBundle\Validator\Constraints as CronAsserts;
+
 /**
  * Cron represents a cron command. It holds:
  * - time data
@@ -9,41 +11,50 @@ namespace FOA\CronBundle\Manager;
  * - comment
  * - log files
  * - cron execution status
+ *
+ * @author Novikov Viktor
  */
 class Cron
 {
     /**
      * @var string
+     * @CronAsserts\CronMinuteFormat
      */
     protected $minute = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronHourFormat
      */
     protected $hour = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronDayOfMonthFormat
      */
     protected $dayOfMonth = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronMonthFormat
      */
     protected $month = '*';
 
     /**
      * @var string
+     * @CronAsserts\CronDayOfWeekFormat
      */
     protected $dayOfWeek = '*';
 
     /**
      * @var string
+     * @CronAsserts\CliCommandPath
      */
     protected $command;
 
     /**
      * @var string
+     * @CronAsserts\LogFile()
      */
     protected $logFile = null;
 
@@ -56,6 +67,7 @@ class Cron
 
     /**
      * @var string
+     * @CronAsserts\LogFile()
      */
     protected $errorFile = null;
 
@@ -86,10 +98,7 @@ class Cron
     protected $comment;
 
     /**
-     * isSuspended
-     *
      * @var boolean
-     * @access protected
      */
     protected $isSuspended = false;
 
@@ -97,7 +106,9 @@ class Cron
      * Parses a cron line into a Cron instance
      *
      * @static
-     * @param $cron string The cron line
+     *
+     * @param string $cron The cron line
+     *
      * @return Cron
      */
     public static function parse($cron)
@@ -138,7 +149,7 @@ class Cron
             $logSize = filesize($logFile);
         }
         if (isset($errorFile) && file_exists($errorFile)) {
-            $lastRunTime = max($lastRunTime ? : 0, filemtime($errorFile));
+            $lastRunTime = max($lastRunTime ?: 0, filemtime($errorFile));
             $errorSize = filesize($errorFile);
         }
 
@@ -146,7 +157,7 @@ class Cron
         $status = 'error';
         if (!$logSize && !$errorSize) {
             $status = 'unknown';
-        } else if (!$errorSize || $errorSize == 0) {
+        } elseif (!$errorSize || $errorSize == 0) {
             $status = 'success';
         }
 
@@ -181,6 +192,7 @@ class Cron
 
     /**
      * @param string $command
+     *
      * @return $this
      */
     public function setCommand($command)
@@ -200,6 +212,7 @@ class Cron
 
     /**
      * @param string $dayOfMonth
+     *
      * @return $this
      */
     public function setDayOfMonth($dayOfMonth)
@@ -219,7 +232,7 @@ class Cron
 
     /**
      * @param string $dayOfWeek
-     * @param $dayOfWeek
+     *
      * @return $this
      */
     public function setDayOfWeek($dayOfWeek)
@@ -239,7 +252,7 @@ class Cron
 
     /**
      * @param string $hour
-     * @param $hour
+     *
      * @return $this
      */
     public function setHour($hour)
@@ -259,6 +272,7 @@ class Cron
 
     /**
      * @param string $minute
+     *
      * @return $this
      */
     public function setMinute($minute)
@@ -278,6 +292,7 @@ class Cron
 
     /**
      * @param string $month
+     *
      * @return $this
      */
     public function setMonth($month)
@@ -297,6 +312,7 @@ class Cron
 
     /**
      * @param string $comment
+     *
      * @return $this
      */
     public function setComment($comment)
@@ -316,6 +332,7 @@ class Cron
 
     /**
      * @param string $logFile
+     *
      * @return $this
      */
     public function setLogFile($logFile)
@@ -335,6 +352,7 @@ class Cron
 
     /**
      * @param string $errorFile
+     *
      * @return $this
      */
     public function setErrorFile($errorFile)
@@ -354,6 +372,7 @@ class Cron
 
     /**
      * @param int $lastRunTime
+     *
      * @return $this
      */
     public function setLastRunTime($lastRunTime)
@@ -373,6 +392,7 @@ class Cron
 
     /**
      * @param string $errorSize
+     *
      * @return $this
      */
     public function setErrorSize($errorSize)
@@ -392,6 +412,7 @@ class Cron
 
     /**
      * @param string $logSize
+     *
      * @return $this
      */
     public function setLogSize($logSize)
@@ -411,6 +432,7 @@ class Cron
 
     /**
      * @param string $status
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -486,6 +508,7 @@ class Cron
         if ('' != $this->comment) {
             $cronLine .= ' #' . $this->comment;
         }
+
         return $cronLine;
     }
 }

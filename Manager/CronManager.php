@@ -5,13 +5,15 @@ use Symfony\Component\Process\Process;
 
 /**
  * CronManager provides easy access to the crontable
+ *
+ * @author Novikov Viktor
  */
 class CronManager
 {
     /**
      * The lines of the cron table, can be cron command or comment
      *
-     * @var array
+     * @var string[]|Cron[]
      */
     protected $lines = [];
 
@@ -39,7 +41,7 @@ class CronManager
         });
 
         foreach ($lines as $lineNumber => $line) {
-            // if line is nt a comment, convert it to a cron
+            // if line is not a comment, convert it to a cron
             if (strpos($line, '#suspended: ', 0) === 0 || 0 !== strpos($line, '#', 0)) {
                 try {
                     $line = Cron::parse($line);
@@ -56,13 +58,30 @@ class CronManager
     /**
      * Gets the array of crons indexed by line number
      *
-     * @return array<Cron>
+     * @return Cron[]
      */
-    public function get()
+    public function getCrons()
     {
         return array_filter($this->lines, function ($line) {
             return $line instanceof Cron;
         });
+    }
+
+    /**
+     * Get a specific cron by its id
+     *
+     * @param int $id
+     *
+     * @return Cron
+     */
+    public function getById($id)
+    {
+        $cronList = $this->getCrons();
+        if (!isset($cronList[$id])) {
+            throw new \InvalidArgumentException(sprintf('Unknown cron ID %d', $id));
+        }
+
+        return $cronList[$id];
     }
 
     /**
@@ -73,19 +92,17 @@ class CronManager
     public function add(Cron $cron)
     {
         $this->lines[] = $cron;
-
         $this->write();
     }
 
     /**
      * Remove a cron from the cron table
      *
-     * @param $index - the line number
+     * @param int $index - the line number
      */
     public function remove($index)
     {
         $this->lines = array_diff_key($this->lines, [$index => '']);
-
         $this->write();
     }
 
@@ -128,7 +145,7 @@ class CronManager
     /**
      * Gets a representation of the cron table file
      *
-     * @return mixed
+     * @return string
      */
     public function getRaw()
     {

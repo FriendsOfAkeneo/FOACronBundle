@@ -1,0 +1,52 @@
+<?php
+
+namespace FOA\CronBundle\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+/**
+ * Display and manage log files
+ * @author Novikov Viktor
+ */
+class LogController extends Controller
+{
+    /**
+     * Gets a log file
+     *
+     * @param $id   - the line of the cron in the cron table
+     * @param $type - the type of file, log or error
+     *
+     * @return Response
+     */
+    public function fileAction($id, $type)
+    {
+        $cronManager = $this->get('foa.cron_bundle.cron_manager');
+        $cron = $cronManager->getById($id);
+        $filepath = ($type == 'log') ? $cron->getLogFile() : $cron->getErrorFile();
+        // TODO: re-activate when secure
+        // $content = file_get_contents($filepath);
+        $content = 'File content not displayable.';
+
+        return $this->render('FOACronBundle:Dashboard:log.html.twig', [
+            'filepath' => $filepath,
+            'content'  => $content,
+        ]);
+    }
+
+    /**
+     * Adds a flash to the flash bag where flashes are array of messages
+     *
+     * @param $type
+     * @param $message
+     */
+    protected function addFlash($type, $message)
+    {
+        if (empty($message)) {
+            return;
+        }
+
+        $session = $this->get('session');
+        $session->getFlashBag()->add($type, $message);
+    }
+}
