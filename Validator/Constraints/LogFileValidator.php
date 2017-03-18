@@ -10,17 +10,6 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class LogFileValidator extends ConstraintValidator
 {
-    /** @var string */
-    private $appDir;
-
-    /**
-     * @param string $appDir
-     */
-    public function __construct($appDir)
-    {
-        $this->appDir = $appDir;
-    }
-
     /**
      * @param string $value
      * @param Constraint $constraint
