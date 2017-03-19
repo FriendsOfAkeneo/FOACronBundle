@@ -2,46 +2,52 @@
 
 <div class="row">
     <em class="span">
-        {{ 'Keep in mind that cron user is %user% and its root directory is %root%.' | trans({'%user%': '<strong>'~wwwUser.name~'</strong>', '%root%': '<strong>'~wwwUser.dir~'</strong>'}, 'BCCCronManagerBundle') | raw }}
+        {{ 'Keep in mind that cron user is %user% and its root directory is %root%.'
+        | trans({'%user%': '<strong>'~wwwUser.name~'</strong>', '%root%': '<strong>'~wwwUser.dir~'</strong>'})
+        | raw }}
     </em>
 </div>
 <br/>
 
 <div class="cron-items">
-    <div class="cron-item {{ form.minute.vars.errors.count ? 'error' : ''}}">
+    <div class="AknFieldContainer cron-item {{ form.minute.vars.errors.count ? 'error' : '' }}">
         <label>Minute: </label>
-        {{ form_widget(form.minute, {'attr':{'class': 'time-input form-control input-mini' }}) }}
+        {{ form_widget(form.minute, {'attr':{'class': 'time-input' }}) }}
         {{ form_errors(form.minute) }}
     </div>
-    <div class="cron-item {{ form.hour.vars.errors.count ? 'error' : ''}}">
+    <div class="AknFieldContainer cron-item {{ form.hour.vars.errors.count ? 'error' : '' }}">
         <label>Hour:</label>
-        {{ form_widget(form.hour, {'attr':{'class': 'time-input form-control input-mini'}}) }}
+        {{ form_widget(form.hour, {'attr':{'class': 'time-input'}}) }}
         {{ form_errors(form.hour) }}
     </div>
-    <div class="cron-item {{ form.dayOfMonth.vars.errors.count ? 'error' : ''}}">
+    <div class="AknFieldContainer cron-item {{ form.dayOfMonth.vars.errors.count ? 'error' : '' }}">
         <label>Day of Month:</label>
-        {{ form_widget(form.dayOfMonth, {'attr':{'class': 'time-input form-control input-mini'}}) }}
+        {{ form_widget(form.dayOfMonth, {'attr':{'class': 'time-input'}}) }}
         {{ form_errors(form.dayOfMonth) }}
     </div>
-    <div class="cron-item {{ form.month.vars.errors.count ? 'error' : ''}}">
+    <div class="AknFieldContainer cron-item {{ form.month.vars.errors.count ? 'error' : '' }}">
         <label>Month:</label>
-        {{ form_widget(form.month, {'attr':{'class': 'time-input form-control input-mini'}}) }}
+        {{ form_widget(form.month, {'attr':{'class': 'time-input'}}) }}
         {{ form_errors(form.month) }}
     </div>
-    <div class="cron-item {{ form.dayOfWeek.vars.errors.count ? 'error' : ''}}">
+    <div class="AknFieldContainer cron-item {{ form.dayOfWeek.vars.errors.count ? 'error' : '' }}">
         <label>Day of Week:</label>
-        {{ form_widget(form.dayOfWeek, {'attr':{'class': 'time-input form-control input-mini'}}) }}
+        {{ form_widget(form.dayOfWeek, {'attr':{'class': 'time-input'}}) }}
         {{ form_errors(form.dayOfWeek) }}
     </div>
 </div>
 
-<div class="{{ form.command.vars.errors.count ? 'error' : ''}}">
-    <div>
+<div class="AknFieldContainer {{ form.command.vars.errors.count ? 'error' : '' }}">
+    <div class="AknFieldContainer-header">
         <span>
-            {{ form_label(form.command, 'Command', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
+            {{ form_label(form.command, 'Command') }}
         </span>
-        {{- form_widget(form.command, {'attr':{'class': 'form-control'}}) }}
-        <button type="button" class="btn btn-default command-preset" id="symfony-command" value="{{ symfonyCommand }}"
+    </div>
+    <div class="AknFieldContainer-inputContainer">
+        {{- form_widget(form.command) }}
+        <button type="button" class="AknIconButton AknIconButton--grey btn btn-default command-preset"
+                id="symfony-command"
+                value="{{ symfonyCommand }}"
                 data-original-title="{{ 'Command sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
@@ -49,13 +55,14 @@
     </div>
 </div>
 
-<div class="{{ form.logFile.vars.errors.count ? 'error' : ''}}">
-    <div>
-        <span>
-            {{ form_label(form.logFile, 'Log File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
-        </span>
-        {{- form_widget(form.logFile, {'attr':{'class': 'form-control col-md-10'}}) }}
-        <button type="button" class="btn btn-default log-preset" value="{{ logDir }}/cron.log"
+<div class="AknFieldContainer {{ form.logFile.vars.errors.count ? 'error' : '' }}">
+    <div class="AknFieldContainer-header">
+        <span>{{ form_label(form.logFile, 'Log File') }}</span>
+    </div>
+    <div class="AknFieldContainer-inputContainer">
+        {{- form_widget(form.logFile) }}
+        <button type="button" class="AknIconButton AknIconButton--grey btn btn-default log-preset"
+                value="{{ logDir }}/cron.log"
                 data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
             <span class="icon-pencil"></span>
         </button>
@@ -63,26 +70,27 @@
     </div>
 </div>
 
-<div class="{{ form.errorFile.vars.errors.count ? 'error' : ''}}">
-    <div>
-        <span>
-            {{ form_label(form.errorFile, 'Error File', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
-        </span>
-        {{- form_widget(form.errorFile, {'attr':{'class': 'form-control col-md-10'}}) }}
-        <button type="button" class="btn btn-default log-preset" value="{{ logDir }}/cron-errors.log"
-                data-original-title="{{ 'Log directory sample' | trans({}, 'BCCCronManagerBundle') }}">
+<div class="AknFieldContainer {{ form.errorFile.vars.errors.count ? 'error' : '' }}">
+    <div class="AknFieldContainer-header">
+        <span>{{ form_label(form.errorFile, 'Error File') }}</span>
+    </div>
+    <div class="AknFieldContainer-inputContainer">
+        {{- form_widget(form.errorFile) }}
+        <button type="button" class="AknIconButton AknIconButton--grey btn btn-default log-preset"
+                value="{{ logDir }}/cron-errors.log"
+                data-original-title="{{ 'Error directory sample' | trans }}">
             <span class="icon-pencil"></span>
         </button>
         {{ form_errors(form.errorFile) }}
     </div>
 </div>
 
-<div class="{{ form.comment.vars.errors.count ? 'error' : ''}}">
-    <div>
-        <span>
-            {{ form_label(form.comment, 'Comment', {'translation_domain': 'BCCCronManagerBundle', 'attr':{'class': 'col-md-1'}}) }}
-        </span>
-        {{- form_widget(form.comment, {'attr':{'class': 'form-control col-md-10'}}) }}
+<div class="{{ form.comment.vars.errors.count ? 'error' : '' }}">
+    <div class="AknFieldContainer-header">
+        <span>{{ form_label(form.comment, 'Comment') }}</span>
+    </div>
+    <div class="AknFieldContainer-inputContainer">
+        {{- form_widget(form.comment) }}
         {{ form_errors(form.comment) }}
     </div>
 </div>

@@ -10,24 +10,11 @@
     color: #B94A48;
 }
 
-#add-cron .tooltip {
-    font-size: 20px;
-    line-height: 26px;
-}
-
-#existing-crons .table th, .table td {
-    vertical-align: middle;
-}
-
-#existing-crons .table th i {
-    margin-right: 5px;
-}
-
 table td pre {
     white-space: pre-wrap;
 }
 
-.glyphicon-white, .glyphicon-white a {
+.icon-white, .icon-white a {
     color: #fff;
 }
 
@@ -38,8 +25,29 @@ table td pre {
 .cron-items {
     display: flex;
     width: 700px;
+    justify-content: space-between;
 }
 
 .cron-item {
     width: 15%;
+}
+
+.foaCron--stateSuccess {
+    color: #46a546;
+}
+
+.foaCron--stateError {
+    color: #9d261d;
+}
+
+.foaCron--stateSuspended {
+    color: #808080;
+}
+
+.collapse {
+    display: none;
+}
+
+.collapse.in {
+    display: block;
 }
