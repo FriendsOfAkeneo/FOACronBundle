@@ -1,3 +1,13 @@
 config:
     paths:
         foacron/system/configuration: foacron/js/system
+
+config:
+    paths:
+        foa/cron: foacron/js/controller/cron
+
+    config:
+        pim/controller-registry:
+            controllers:
+                foa_cron_index:
+                    module: foa/cron
