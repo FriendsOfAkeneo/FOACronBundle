@@ -29,7 +29,7 @@ class DashboardController extends Controller
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        $form = $this->createForm(new CronType(), new Cron());
+        $form = $this->createForm(CronType::class, new Cron());
 
         return $this->render('FOACronBundle:Dashboard:index.html.twig', [
             'crons' => $cronManager->getCrons(),

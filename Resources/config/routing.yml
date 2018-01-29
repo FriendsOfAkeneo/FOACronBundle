@@ -28,3 +28,8 @@ foa_cron_file:
   defaults: { _controller: 'FOACronBundle:Log:file' }
   requirements:
       type: log|error
+
+foa_rest_cron_list:
+  path: /rest/cron/
+  defaults: { _controller: 'FOACronBundle:Rest\Cron:index' }
+

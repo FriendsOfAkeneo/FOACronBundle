@@ -2,6 +2,8 @@
 
 namespace FOA\CronBundle\Form\Type;
 
+use FOA\CronBundle\Manager\Cron;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,13 +24,13 @@ class CronType extends AbstractType
             ->add('month')
             ->add('dayOfWeek')
             ->add('command')
-            ->add('logFile', 'text', [
+            ->add('logFile', TextType::class, [
                 'required' => false,
             ])
-            ->add('errorFile', 'text', [
+            ->add('errorFile', TextType::class, [
                 'required' => false,
             ])
-            ->add('comment', 'text', [
+            ->add('comment', TextType::class, [
                 'required' => false,
             ]);
     }
@@ -36,7 +38,7 @@ class CronType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'FOA\CronBundle\Manager\Cron'
+            'data_class' => Cron::class
         ]);
     }
 

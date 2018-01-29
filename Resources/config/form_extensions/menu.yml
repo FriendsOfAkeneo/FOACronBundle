@@ -1,0 +1,8 @@
+extensions:
+    foa_cron-menu-cron-management:
+        module: pim/menu/item
+        parent: pim-menu-system-navigation-block
+        position: 150
+        config:
+            title: foa_cron.menu.cron-management
+            to: foa_cron_index

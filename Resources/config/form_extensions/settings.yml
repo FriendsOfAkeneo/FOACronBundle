@@ -1,0 +1,6 @@
+extensions:
+    foa-system-configuration:
+        module: foacron/system/configuration
+        parent: oro-system-config-tabs
+        targetZone: container
+        position: 150

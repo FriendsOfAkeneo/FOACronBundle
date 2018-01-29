@@ -111,7 +111,7 @@ class Cron
      *
      * @return Cron
      */
-    public static function parse($cron)
+    public static function parse(string $cron): Cron
     {
         if (substr($cron, 0, 12) == '#suspended: ') {
             $cron = substr($cron, 12);
@@ -195,7 +195,7 @@ class Cron
      *
      * @return $this
      */
-    public function setCommand($command)
+    public function setCommand(string $command)
     {
         $this->command = $command;
 
@@ -205,7 +205,7 @@ class Cron
     /**
      * @return string
      */
-    public function getCommand()
+    public function getCommand(): ?string
     {
         return $this->command;
     }
@@ -215,7 +215,7 @@ class Cron
      *
      * @return $this
      */
-    public function setDayOfMonth($dayOfMonth)
+    public function setDayOfMonth(string $dayOfMonth)
     {
         $this->dayOfMonth = $dayOfMonth;
 
@@ -235,7 +235,7 @@ class Cron
      *
      * @return $this
      */
-    public function setDayOfWeek($dayOfWeek)
+    public function setDayOfWeek(string $dayOfWeek)
     {
         $this->dayOfWeek = $dayOfWeek;
 
@@ -255,7 +255,7 @@ class Cron
      *
      * @return $this
      */
-    public function setHour($hour)
+    public function setHour(string $hour)
     {
         $this->hour = $hour;
 
@@ -275,7 +275,7 @@ class Cron
      *
      * @return $this
      */
-    public function setMinute($minute)
+    public function setMinute(string $minute)
     {
         $this->minute = $minute;
 
@@ -295,7 +295,7 @@ class Cron
      *
      * @return $this
      */
-    public function setMonth($month)
+    public function setMonth(string $month)
     {
         $this->month = $month;
 
@@ -315,7 +315,7 @@ class Cron
      *
      * @return $this
      */
-    public function setComment($comment)
+    public function setComment(string $comment)
     {
         $this->comment = $comment;
 
@@ -335,7 +335,7 @@ class Cron
      *
      * @return $this
      */
-    public function setLogFile($logFile)
+    public function setLogFile(string $logFile)
     {
         $this->logFile = $logFile;
 
@@ -355,7 +355,7 @@ class Cron
      *
      * @return $this
      */
-    public function setErrorFile($errorFile)
+    public function setErrorFile(string $errorFile)
     {
         $this->errorFile = $errorFile;
 
@@ -375,7 +375,7 @@ class Cron
      *
      * @return $this
      */
-    public function setLastRunTime($lastRunTime)
+    public function setLastRunTime(?string $lastRunTime)
     {
         $this->lastRunTime = $lastRunTime;
 
@@ -395,7 +395,7 @@ class Cron
      *
      * @return $this
      */
-    public function setErrorSize($errorSize)
+    public function setErrorSize(?string $errorSize)
     {
         $this->errorSize = $errorSize;
 
@@ -415,7 +415,7 @@ class Cron
      *
      * @return $this
      */
-    public function setLogSize($logSize)
+    public function setLogSize(?string $logSize)
     {
         $this->logSize = $logSize;
 
@@ -435,7 +435,7 @@ class Cron
      *
      * @return $this
      */
-    public function setStatus($status)
+    public function setStatus(string $status)
     {
         $this->status = $status;
 
@@ -455,7 +455,7 @@ class Cron
      *
      * @return string
      */
-    public function getExpression()
+    public function getExpression(): string
     {
         return sprintf('%s %s %s %s %s', $this->minute, $this->hour, $this->dayOfMonth, $this->month, $this->dayOfWeek);
     }
@@ -465,7 +465,7 @@ class Cron
      *
      * @return boolean
      */
-    public function isSuspended()
+    public function isSuspended(): bool
     {
         return $this->isSuspended;
     }
@@ -477,7 +477,7 @@ class Cron
      *
      * @return Cron
      */
-    public function setSuspended($isSuspended = true)
+    public function setSuspended(bool $isSuspended = true)
     {
         if ($this->isSuspended != $isSuspended) {
             $this->isSuspended = $isSuspended;
