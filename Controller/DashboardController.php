@@ -58,15 +58,11 @@ class DashboardController extends Controller
             $cronManager->add($cron);
             $this->addFlash('message', $cronManager->getOutput());
             $this->addFlash('error', $cronManager->getError());
-
-            return $this->redirect($this->generateUrl('foa_cron_index'));
         }
 
-        return $this->render('FOACronBundle:Dashboard:index.html.twig', [
-            'crons' => $cronManager->getCrons(),
-            'raw'   => $cronManager->getRaw(),
-            'form'  => $form->createView(),
-        ]);
+        $frontendUrl = '/#' . $this->generateUrl('foa_cron_index');
+
+        return $this->redirect($frontendUrl);
     }
 
     /**
@@ -92,7 +88,9 @@ class DashboardController extends Controller
             $this->addFlash('message', $cronManager->getOutput());
             $this->addFlash('error', $cronManager->getError());
 
-            return $this->redirect($this->generateUrl('foa_cron_index'));
+            $frontendUrl = '/#' . $this->generateUrl('foa_cron_index');
+
+            return $this->redirect($frontendUrl);
         }
 
         return $this->render('FOACronBundle:Dashboard:edit.html.twig', [
@@ -112,7 +110,9 @@ class DashboardController extends Controller
     {
         $this->suspendTask($id, false);
 
-        return $this->redirect($this->generateUrl('foa_cron_index'));
+        $frontendUrl = '/#' . $this->generateUrl('foa_cron_index');
+
+        return $this->redirect($frontendUrl);
     }
 
     /**
@@ -126,7 +126,9 @@ class DashboardController extends Controller
     {
         $this->suspendTask($id, true);
 
-        return $this->redirect($this->generateUrl('foa_cron_index'));
+        $frontendUrl = '/#' . $this->generateUrl('foa_cron_index');
+
+        return $this->redirect($frontendUrl);
     }
 
     /**
@@ -165,7 +167,9 @@ class DashboardController extends Controller
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
 
-        return $this->redirect($this->generateUrl('foa_cron_index'));
+        $frontendUrl = '/#' . $this->generateUrl('foa_cron_index');
+
+        return $this->redirect($frontendUrl);
     }
 
     /**

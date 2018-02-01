@@ -128,7 +128,14 @@
 
             <form method="post" action="{{ path('foa_cron_add') }}">
                 {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
-                <input type="submit" class="btn btn-success btn-lg" value="{{ 'cron.add'|trans }}"/>
+
+                <div class="AknButtonList" data-drop-zone="buttons">
+                    <div>
+                        <button type="submit" title="Add cron task"
+                                class="AknButton AknButton--apply AknButtonList-item">{{ 'cron.add'|trans }}
+                        </button>
+                    </div>
+                </div>
             </form>
         </section>
     </div>
