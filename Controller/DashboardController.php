@@ -51,7 +51,7 @@ class DashboardController extends Controller
         $cron = new Cron();
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
-        $form = $this->createForm(new CronType(), $cron);
+        $form = $this->createForm(CronType::class, $cron);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -78,7 +78,7 @@ class DashboardController extends Controller
         $this->addFlash('message', $cronManager->getOutput());
         $this->addFlash('error', $cronManager->getError());
         $cron = $cronManager->getById($id);
-        $form = $this->createForm(new CronType(), $cron);
+        $form = $this->createForm(CronType::class), $cron);
 
         $request = $this->get('request');
         $form->handleRequest($request);
