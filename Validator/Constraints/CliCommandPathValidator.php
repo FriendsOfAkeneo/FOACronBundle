@@ -11,14 +11,14 @@ use Symfony\Component\Validator\ConstraintValidator;
 class CliCommandPathValidator extends ConstraintValidator
 {
     /** @var string */
-    private $kernelDir;
+    private $projectDir;
 
     /**
-     * @param string $kernelDir
+     * @param string $projectDir
      */
-    public function __construct($kernelDir)
+    public function __construct($projectDir)
     {
-        $this->kernelDir = $kernelDir;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -27,7 +27,7 @@ class CliCommandPathValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $pattern = sprintf('#^php \s+ %s/console \s+#x', preg_quote($this->kernelDir));
+        $pattern = sprintf('#^php \s+ %s/bin/console \s+#x', preg_quote($this->projectDir));
         if (!preg_match($pattern, $value, $matches)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%string%', $value)

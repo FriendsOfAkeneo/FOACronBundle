@@ -5,125 +5,101 @@
 {% block content %}
     <div class="AknDefault-mainContent">
         {{ elements.page_header(
-            {
-                title: 'foa_cron.settings.title'|trans,
-                buttons: buttons
-            }
+        {
+            title: 'foa_cron.settings.title'|trans,
+            buttons: buttons
+        }
         ) }}
 
         <section id="existing-crons" class="container-fluid">
-            <div class="page-header">
-                <h4>
-                    {{ 'cron.list'|trans }}
-                </h4>
+
+            <div class="AknTitleContainer-line" style="padding: 0 0 0 40px;">
+                <div class="AknTitleContainer-title">
+                    <div>{{ 'cron.list'|trans }}</div>
+                </div>
             </div>
 
-            {% for index, cron in crons %}
-                <div class="row">
-                    <div class="span2">
-                    <span class="label
-                    label-{% if cron.status == 'error' %}danger{% elseif cron.status == 'unknown' %}warning{% else %}success{% endif %}">
-                        {{ cron.status | trans({}, 'BCCCronManagerBundle') | capitalize }}
-                    </span>
+            <div id="product-grid" data-drop-zone="grid">
+                <div id="grid-product-grid" data-type="datagrid" data-rendered="true">
+                    <div class="clearfix">
+                        <div class="AknGridContainer  AknGridContainer--withCheckbox grid-container container-fluid">
+                            <table class="AknGrid grid" style="display: table;">
+                                <thead class="AknGrid-header">
+                                <tr class="AknGrid-bodyRow">
+                                    <th class="AknGrid-headerCell"><span>Index</span></th>
+                                    <th class="AknGrid-headerCell"><span>Status</span></th>
+                                    <th class="AknGrid-headerCell"><span>Expression</span></th>
+                                    <th class="AknGrid-headerCell"><span>Active</span></th>
+                                    <th class="AknGrid-headerCell"><span>Command</span></th>
+                                    <th class="AknGrid-headerCell"><span>Comment</span></th>
+                                    <th class="AknGrid-headerCell"><span>Last Run</span></th>
+                                    <th class="AknGrid-headerCell"><span>Log File</span></th>
+                                    <th class="AknGrid-headerCell"><span>Error File</span></th>
+                                    <th class="AknGrid-headerCell action-column"><a><b class="sort-caret"></b></a></th>
+                                </tr>
+                                </thead>
+                                <tbody class="AknGrid-body">
+                                {% for index, cron in crons %}
+                                    <tr class="AknGrid-bodyRow row-click-action">
+                                        <td class="AknGrid-bodyCell string-cell" data-column="identifier">{{ index }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.status }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.expression }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">
+                                            {% if cron.suspended %}
+                                                <div class="AknBadge AknBadge--medium AknBadge--disabled status-disabled">
+                                                    <i class="AknBadge-icon icon-status-disabled icon-circle"></i>Disabled
+                                                </div>
+                                            {% else %}
+                                                <div class="AknBadge AknBadge--medium AknBadge--enabled status-enabled">
+                                                    <i class="AknBadge-icon icon-status-enabled icon-circle"></i>Enabled
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.command }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.comment }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.lastRunTime }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.logFile }}</td>
+                                        <td class="AknGrid-bodyCell string-cell">{{ cron.errorFile }}</td>
+                                        <td class="AknGrid-bodyCell AknGrid-bodyCell--actions action-cell">
+                                            <div class="AknButtonList AknButtonList--right">
+                                                <a href="javascript:void(0);"
+                                                   class="AknIconButton AknIconButton--small AknIconButton--edit AknButtonList-item edit-cron-task"
+                                                   title="Edit" data-id="{{ index }}">
+                                                    Edit
+                                                </a>
+                                                <a href="{{ path('foa_cron_wakeup', {'id':index}) }}"
+                                                   class="AknIconButton AknIconButton--small AknIconButton--play AknButtonList-item"
+                                                   title="Wakeup">
+                                                    Wakeup
+                                                </a>
+                                                <a href="{{ path('foa_cron_suspend', {'id':index}) }}"
+                                                   class="AknIconButton AknIconButton--small AknIconButton--remove AknButtonList-item"
+                                                   title="Suspend">
+                                                    Suspend
+                                                </a>
+                                                <a href="{{ path('foa_cron_remove', {'id':index}) }}"
+                                                   class="AknIconButton AknIconButton--small AknIconButton--trash AknButtonList-item"
+                                                   title="Delete">
+                                                    Remove
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{ not loop.last ? '<hr/>' : '' }}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <h4 class="span{% if cron.suspended %} text-muted{% endif %}">
-                        {{ cron.expression }} {{ cron.command }}
-                    </h4>
-                    <button class="btn btn-default pull-right" data-toggle="collapse" data-target="#cron-{{ index }}"><i
-                                class="icon-search"></i>{{ 'cron.details'|trans }}</button>
                 </div>
-                <div class="collapse in" id="cron-{{ index }}">
-                    <table class="table table-striped">
-                        <tr>
-                            <th class="span2" style="color: #808080;"><i
-                                        class="glyphicon glyphicon-time"></i>{{ 'cron.last_run'|trans }}</th>
-                            <td colspan="2">{{ cron.lastRunTime ? cron.lastRunTime | date : 'Unknown' | trans({}, 'BCCCronManagerBundle') }}</td>
-                        </tr>
-                        {% if cron.comment %}
-                            <tr>
-                                <th style="color: #049cdb;"><i
-                                            class="glyphicon glyphicon-comment"></i>{{ 'cron.comment'|trans }}</th>
-                                <td colspan="2">{{ cron.comment }}</td>
-                            </tr>
-                        {% endif %}
-                        {% if cron.logFile %}
-                            <tr>
-                                <th style="color: #46a546;"><i
-                                            class="glyphicon glyphicon-file"></i>{{ 'cron.log_file'|trans }}</th>
-                                <td>{{ cron.logFile }}</td>
-                                <td>
-                                    {% if cron.logSize %}
-                                        <a class="btn btn-default btn-info pull-right modal-link"
-                                           href="{{ path('foa_cron_file', {'id':index, 'type': 'log'}) }}">
-                                            <i class="glyphicon glyphicon-search glyphicon-white"></i>
-                                            {{ 'cron.log_file'|trans }}
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endif %}
-                        {% if cron.errorFile %}
-                            <tr>
-                                <th style="color: #9d261d;"><i
-                                            class="glyphicon glyphicon-file"></i>{{ 'cron.error_file'|trans }}</th>
-                                <td>{{ cron.errorFile }}</td>
-                                <td>
-                                    {% if cron.errorSize %}
-                                        <a class="btn btn-default btn-info pull-right modal-link"
-                                           href="{{ path('foa_cron_file', {'id':index, 'type': 'error'}) }}">
-                                            <i class="glyphicon glyphicon-search glyphicon-white"></i>
-                                            {{ 'cron.error_file'|trans }}
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endif %}
-                        <tr>
-                            <th style="color: #808080;"><i class="glyphicon glyphicon-cog"></i>{{ 'cron.raw_cron'|trans }}
-                            </th>
-                            <td colspan="2">
-                                <pre>{{ cron }}</pre>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td colspan="2">
-                            <span class="pull-right">
-                                <a class="btn btn-default btn-primary"
-                                   href="{{ path('foa_cron_edit', {'id':index}) }}">
-                                    <i class="glyphicon glyphicon-edit glyphicon-white"></i>
-                                    {{ 'cron.edit'|trans }}
-                                </a>
-                                {% if cron.suspended %}
-                                    <a class="btn btn-default btn-success"
-                                       href="{{ path('foa_cron_wakeup', {'id':index}) }}">
-                                        <i class="glyphicon glyphicon-play glyphicon-white"></i>
-                                        {{ 'cron.wake_up'|trans }}
-                                    </a>
-                                {% else %}
-                                    <a class="btn btn-default btn-warning"
-                                       href="{{ path('foa_cron_suspend', {'id':index}) }}">
-                                        <i class="glyphicon glyphicon-pause glyphicon-white"></i>
-                                        {{ 'cron.suspend'|trans }}
-                                    </a>
-                                {% endif %}
-                                <a class="btn btn-default btn-danger"
-                                   href="{{ path('foa_cron_remove', {'id':index}) }}">
-                                    <i class="glyphicon glyphicon-trash glyphicon-white"></i>
-                                    {{ 'cron.remove'|trans }}
-                                </a>
-                            </span>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                {{ not loop.last ? '<hr/>' : '' }}
-            {% endfor %}
+            </div>
         </section>
 
         <section id="add-cron" class="container-fluid">
-            <div class="page-header">
-                <h4>{{ 'cron.add_a_cron'|trans }}</h4>
+            <div class="AknTitleContainer-line" style="padding: 0 0 0 40px;">
+                <div class="AknTitleContainer-title">
+                    <div>{{ 'cron.add_a_cron'|trans }}</div>
+                </div>
             </div>
 
             <form method="post" action="{{ path('foa_cron_add') }}">
@@ -131,8 +107,8 @@
 
                 <div class="AknButtonList" data-drop-zone="buttons">
                     <div>
-                        <button type="submit" title="Add cron task"
-                                class="AknButton AknButton--apply AknButtonList-item">{{ 'cron.add'|trans }}
+                        <button title="Create cron job"
+                                class="AknButton AknButton--apply AknButtonList-item"> {{ 'cron.add'|trans }}
                         </button>
                     </div>
                 </div>
@@ -140,14 +116,19 @@
         </section>
     </div>
 
-    <script>
+    {# @TODO move this block to requirejs module #}
+    <script type="text/javascript" charset="utf-8">
         require(
             [
+                'jquery',
+                'pim/router',
                 'pim/common/breadcrumbs',
                 'pim/fetcher-registry',
                 'pim/form-builder'
             ],
             function(
+                $,
+                router,
                 Breadcrumbs,
                 FetcherRegistry,
                 FormBuilder
@@ -169,6 +150,45 @@
                             $('.user-menu').append(form.el);
                             form.render();
                         }.bind(this));
+                    });
+
+                    $('.edit-cron-task').on('click', function (e) {
+                        e.preventDefault();
+                        var cronId = $(this).attr('data-id');
+                        var params = {id: cronId};
+                        var route  = 're_cron_task_edit';
+                        router.redirectToRoute(route, params);
+                    });
+
+                    var presets = {
+                        'yearly': ['0', '0', '1', '1', '*'],
+                        'monthly': ['0', '0', '1', '*', '*'],
+                        'weekly': ['0', '0', '*', '*', '0'],
+                        'daily': ['0', '0', '*', '*', '*'],
+                        'hourly': ['0', '*', '*', '*', '*']
+                    };
+
+                    $('.time-preset').on('click', function (e) {
+                        e.preventDefault();
+                        var $link = $(this);
+
+                        var preset = presets[$link.attr('id')];
+
+                        $('#cron_minute').val(preset[0]);
+                        $('#cron_hour').val(preset[1]);
+                        $('#cron_dayOfMonth').val(preset[2]);
+                        $('#cron_month').val(preset[3]);
+                        $('#cron_dayOfWeek').val(preset[4]);
+                    });
+
+                    $('.command-preset').on('click', function () {
+                        $('#cron_command').val($(this).attr('value'));
+                    });
+
+                    $('.log-preset').on('click', function () {
+                        var $button = $(this);
+
+                        $button.parent().parent().find('input').val($button.attr('value'));
                     });
                 });
             }

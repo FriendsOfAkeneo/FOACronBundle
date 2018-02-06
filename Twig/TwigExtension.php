@@ -24,9 +24,9 @@ class TwigExtension extends \Twig_Extension
 
     /**
      * @param string $logDir
-     * @param string $kernelDir
+     * @param string $projectDir
      */
-    public function __construct($logDir, $kernelDir)
+    public function __construct($logDir, $projectDir)
     {
         if (function_exists('posix_getpwuid')) {
             $this->wwwUser = posix_getpwuid(posix_geteuid());
@@ -37,7 +37,7 @@ class TwigExtension extends \Twig_Extension
             ];
         }
         $this->logDir = $logDir;
-        $this->symfonyCommand = 'php ' . $kernelDir . '/console';
+        $this->symfonyCommand = 'php ' . $projectDir . '/bin/console';
     }
 
     /**
