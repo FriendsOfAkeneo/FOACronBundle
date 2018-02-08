@@ -1,34 +1,104 @@
-{% extends 'PimEnrichBundle::layout.html.twig' %}
+{% import 'PimUIBundle:Default:page_elements.html.twig' as elements %}
 
 {% trans_default_domain "messages" %}
 
-{% block head_script_component %}
+{% block content %}
+    <div class="AknDefault-mainContent">
+        {{ elements.page_header(
+        {
+            title: 'foa_cron.settings.title'|trans,
+            buttons: buttons
+        }
+        ) }}
+
+        <form method="post" action="{{ path('foa_cron_edit', {'id': id}) }}">
+            {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
+
+            <div class="AknButtonList" data-drop-zone="buttons">
+                <div>
+                    <button title="Edit cron"
+                            class="AknButton AknButton--apply AknButtonList-item"> {{ 'cron.edit'|trans }} </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {# @TODO move to separate requirejs module - duplicated in index.html.twig #}
     <script type="text/javascript" charset="utf-8">
         require(
-            ['foacron/system/configuration'],
-            function(cron) {
+            [
+                'jquery',
+                'pim/router',
+                'pim/common/breadcrumbs',
+                'pim/fetcher-registry',
+                'pim/form-builder'
+            ],
+            function(
+                $,
+                router,
+                Breadcrumbs,
+                FetcherRegistry,
+                FormBuilder
+            ) {
+                $(function() {
+                    const breadcrumbs = new Breadcrumbs({
+                        config: {
+                            tab: 'pim-menu-system',
+                            item: 'foa_cron-menu-cron-management'
+                        }
+                    });
+                    breadcrumbs.configure().then(function () {
+                        breadcrumbs.render();
+                        $('*[data-drop-zone="breadcrumbs"]').append(breadcrumbs.$el);
+                    });
+
+                    FetcherRegistry.initialize().done(function () {
+                        FormBuilder.build('pim-menu-user-navigation').then(function (form) {
+                            $('.user-menu').append(form.el);
+                            form.render();
+                        }.bind(this));
+                    });
+
+                    $('.edit-cron-task').on('click', function (e) {
+                        e.preventDefault();
+                        var cronId = $(this).attr('data-id');
+                        var params = {id: cronId};
+                        var route  = 'foa_cron_edit';
+                        router.redirectToRoute(route, params);
+                    });
+
+                    var presets = {
+                        'yearly': ['0', '0', '1', '1', '*'],
+                        'monthly': ['0', '0', '1', '*', '*'],
+                        'weekly': ['0', '0', '*', '*', '0'],
+                        'daily': ['0', '0', '*', '*', '*'],
+                        'hourly': ['0', '*', '*', '*', '*']
+                    };
+
+                    $('.time-preset').on('click', function (e) {
+                        e.preventDefault();
+                        var $link = $(this);
+
+                        var preset = presets[$link.attr('id')];
+
+                        $('#cron_minute').val(preset[0]);
+                        $('#cron_hour').val(preset[1]);
+                        $('#cron_dayOfMonth').val(preset[2]);
+                        $('#cron_month').val(preset[3]);
+                        $('#cron_dayOfWeek').val(preset[4]);
+                    });
+
+                    $('.command-preset').on('click', function () {
+                        $('#cron_command').val($(this).attr('value'));
+                    });
+
+                    $('.log-preset').on('click', function () {
+                        var $button = $(this);
+
+                        $button.parent().parent().find('input').val($button.attr('value'));
+                    });
+                });
             }
         );
     </script>
-{% endblock %}
-
-{% block content %}
-    <div class="navigation clearfix navbar-extra">
-        <div class="row-fluid">
-            <div class="navbar-content pull-left">
-                <div class="navbar-title clearfix-oro">
-                    <div class="sub-title">Edit Cron</div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="navbar-content pull-left">
-            </div>
-        </div>
-    </div>
-    <section id="edit-cron" class="container-fluid">
-        <form method="post" action="{{ path('foa_cron_edit', {'id': id}) }}">
-            {% include 'FOACronBundle:Dashboard:form.html.twig' with {'form': form} %}
-            <input type="submit" class="btn btn-success btn-lg" value="{{ 'cron.edit'|trans }}"/>
-        </form>
-    </section>
 {% endblock %}
