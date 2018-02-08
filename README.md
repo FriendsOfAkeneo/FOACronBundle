@@ -1,5 +1,5 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/FriendsOfAkeneo/FOACronBundle/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/FriendsOfAkeneo/FOACronBundle/?branch=develop)
-[![Build Status](https://travis-ci.org/FriendsOfAkeneo/FOACronBundle.svg?branch=master)](https://travis-ci.org/FriendsOfAkeneo/FOACronBundle)
+[![Build Status](https://travis-ci.org/FriendsOfAkeneo/FOACronBundle.svg?branch=2-compatibility)](https://travis-ci.org/FriendsOfAkeneo/FOACronBundle)
 
 FOACronBundle - easy cron management from Akeneo dashboard
 =======================================
@@ -15,6 +15,8 @@ This version provides some quality improvements and UI compatible with Akeneo.
 |:-------------:|:------------------:|
 | v1.0.*        | v1.5.*             |
 | v1.1.*        | v1.6.*             |
+| v1.2.*        | v1.7.*             |
+| v1.3.*        | v2.*.*             |
 
 # Installation
 
@@ -43,14 +45,10 @@ FOACronBundle:
 
 # Usage
 
-1) Configure access for users who can manage cron tasks in 'System->Users Management->Roles'
+1) Configure access for users who can manage cron tasks in 'System->Roles->Update->Roles Management'
 
-![Roles Management](https://github.com/FriendsOfAkeneo/FOACronBundle/blob/develop/Resources/doc/images/roles-permissions.png)
+@TODO add screen after compatibility finished
 
 Now cron management should be available by 'System->Cron Management'.
 
-![Cron Management board](https://github.com/FriendsOfAkeneo/FOACronBundle/blob/develop/Resources/doc/images/cron-dashboard.png)
-
-
-## TODO
-1) Update UI to be more beauty and understandable;
+@TODO add screen after compatibility finished
