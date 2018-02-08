@@ -22,7 +22,7 @@ class CliCommandPathValidatorTest extends AbstractConstraintValidatorTest
     public function testValidCommand()
     {
         $constraint = new CliCommandPath();
-        $this->validator->validate('php /home/akeneo/pim/app/console debug:container', $constraint);
+        $this->validator->validate('php /home/akeneo/pim/bin/console debug:container', $constraint);
         $this->assertNoViolation();
     }
 
@@ -34,9 +34,9 @@ class CliCommandPathValidatorTest extends AbstractConstraintValidatorTest
         return [
             ['php /home/akeneo/pim/app/hack.php'],
             ['php /usr/bin/console'],
-            ['/home/akeneo/pim/app/console'],
-            ['php /home/akeneo/pim/app/console_hacked'],
-            ['app/console'],
+            ['/home/akeneo/pim/bin/console'],
+            ['php /home/akeneo/pim/bin/console_hacked'],
+            ['bin/console'],
         ];
     }
 
